@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": ["plugin:vue/essential", "airbnb-base"],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "plugins": ["vue"],
+  "rules": {
+    "no-console": "warn",
+    "no-use-before-define": "warn",
+    "spaced-comment": "warn",
+    "linebreak-style": "off",
+    "no-unused-vars": "warn",
+    "import/no-extraneous-dependencies": "warn",
+    "implicit-arrow-linebreak": "warn"
+  }
+}
