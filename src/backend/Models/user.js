@@ -7,17 +7,18 @@ const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
   type: { type: String, enum: ['Particular', 'ONG'], required: true },
-  fullName: String,
+  fullname: String,
   NID: String,
   description: String,
   location: {
-    type: [{ country: String, city: String, address: String }],
+    _id: false,
+    type: { country: String, city: String, address: String },
     required: true,
   },
   username: { type: String, unique: true, required: true },
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  contact: [{ contactType: String, value: String }],
+  contact: [{ _id: false, contactType: String, value: String }],
   profilePicture: String,
   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 });
