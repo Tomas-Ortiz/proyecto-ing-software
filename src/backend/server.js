@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const cors = require('cors');
 const connectionDB = require('./Models/connectionDB');
 const userRouter = require('./Routes/userRouter');
 
@@ -15,6 +16,7 @@ server.set('json spaces', 2);
 //server.use(express.static(path.join(__dirname, '/public/')));
 
 // Middlewares
+server.use(cors());
 server.use(morgan('dev'));
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));

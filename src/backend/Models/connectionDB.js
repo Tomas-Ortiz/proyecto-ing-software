@@ -8,6 +8,7 @@ const uri = `mongodb://${host}/${dbName}`;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
+mongoose.set('useCreateIndex', true);
 
 mongoose.connect(uri, (error, db) => {
   if (error) {
