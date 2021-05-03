@@ -14,8 +14,8 @@ const userSchema = new Schema({
     type: [{ country: String, city: String, address: String }],
     required: true,
   },
-  username: { type: String, required: true },
-  email: { type: String, required: true },
+  username: { type: String, unique: true, required: true },
+  email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   contact: [{ contactType: String, value: String }],
   profilePicture: String,
@@ -26,8 +26,7 @@ const userSchema = new Schema({
 
 userSchema.methods.encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
-  const encriptedPassword = bcrypt.hash(password, salt);
-  return encriptedPassword;
+  return bcrypt.hash(password, salt);
 };
 
 module.exports = mongoose.model('User', userSchema);

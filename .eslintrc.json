@@ -16,6 +16,7 @@
     "linebreak-style": "off",
     "no-unused-vars": "warn",
     "import/no-extraneous-dependencies": "warn",
-    "implicit-arrow-linebreak": "warn"
+    "implicit-arrow-linebreak": "warn",
+    "prefer-const": "warn"
   }
 }
