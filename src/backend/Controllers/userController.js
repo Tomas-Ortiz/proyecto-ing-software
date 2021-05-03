@@ -16,13 +16,11 @@ const userController = {
         contact: req.body.contact,
       });
       user.password = await user.encryptPassword(user.password);
-      console.log(user.password);
       await user.save();
-      console.log(user);
       res.status(200).send(user);
     } catch (err) {
-      console.log(err);
-      res.status(500).send(err);
+      console.log(err.message);
+      res.status(500).send(err.message);
     }
   },
 };
