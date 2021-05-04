@@ -17,6 +17,9 @@
     "no-unused-vars": "warn",
     "import/no-extraneous-dependencies": "warn",
     "implicit-arrow-linebreak": "warn",
-    "prefer-const": "warn"
+    "prefer-const": "warn",
+    "comma-dangle": "warn",
+    "consistent-return": "warn",
+    "arrow-body-style": "off"
   }
 }

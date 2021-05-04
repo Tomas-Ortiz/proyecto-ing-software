@@ -21,6 +21,7 @@ const userSchema = new Schema({
   contact: [{ _id: false, contactType: String, value: String }],
   profilePicture: String,
   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
 });
 
 // Encriptación con bcrypt

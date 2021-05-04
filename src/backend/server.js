@@ -1,6 +1,5 @@
 const express = require('express');
 const morgan = require('morgan');
-const path = require('path');
 const cors = require('cors');
 const connectionDB = require('./Models/connectionDB');
 const userRouter = require('./Routes/userRouter');
