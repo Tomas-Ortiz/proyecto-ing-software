@@ -11,9 +11,6 @@ server.set('port', port);
 
 server.set('json spaces', 2);
 
-// Archivos estáticos
-//server.use(express.static(path.join(__dirname, '/public/')));
-
 // Middlewares
 server.use(cors());
 server.use(morgan('dev'));

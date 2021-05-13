@@ -7,7 +7,7 @@ const userController = {
     let result = {};
     try {
       const user = new User(req.body);
-      user.password = await user.encryptPassword(user.password);
+      user.password = await User.encryptPassword(user.password);
       await user.save();
       result = {
         success: true,
@@ -19,7 +19,7 @@ const userController = {
         success: false,
         msg: err.message,
       };
-      res.status(500).send(result);
+      res.status(400).send(result);
     }
   },
 
@@ -28,6 +28,8 @@ const userController = {
     try {
       const { token } = req.headers;
       const userDecoded = await jwt.verify(token, config.key);
+      // Si no se encuentra ningún usuario se lanza un error (orFail) y lo captura el catch
+      // ahorra el if adicional
       const user = await User.findOne({ _id: userDecoded.userId }).orFail();
       result = {
         success: true,
@@ -39,7 +41,33 @@ const userController = {
         success: false,
         msg: err.message,
       };
-      res.status(401).send(result);
+      res.status(400).send(result);
+    }
+  },
+
+  updateProfile: async (req, res) => {
+    let result = {};
+    try {
+      const user = req.body;
+      if (user.password) {
+        user.password = await User.encryptPassword(user.password);
+      }
+      // se usa findOneAndUpdate ya que updateOne no devuelve un documento
+      // new: true para devolver el documento ya actualizado
+      const updatedUser = await User.findOneAndUpdate({ _id: user.id }, user, {
+        new: true,
+      }).orFail();
+      result = {
+        success: true,
+        msg: updatedUser,
+      };
+      res.status(200).send(result);
+    } catch (err) {
+      result = {
+        success: false,
+        msg: err.message,
+      };
+      res.status(400).send(result);
     }
   },
 };
