@@ -21,6 +21,8 @@
     "semi": "off",
     "max-len": "off",
     "no-undef": "warn",
-    "no-trailing-spaces": "warn"
+    "no-trailing-spaces": "warn",
+    "comma-dangle": "off",
+    "consistent-return": "off"
   }
 }
