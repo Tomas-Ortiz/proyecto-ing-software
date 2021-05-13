@@ -18,9 +18,9 @@
     "import/no-extraneous-dependencies": "warn",
     "implicit-arrow-linebreak": "warn",
     "prefer-const": "warn",
-    "comma-dangle": "warn",
-    "consistent-return": "warn",
-    "arrow-body-style": "off",
-    "no-useless-escape": "off"
+    "semi": "off",
+    "max-len": "off",
+    "no-undef": "warn",
+    "no-trailing-spaces": "warn"
   }
 }
