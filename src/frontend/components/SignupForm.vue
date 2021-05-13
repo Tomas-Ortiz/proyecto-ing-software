@@ -19,7 +19,7 @@
             id="fullName"
             placeholder="Nombre completo"
             :regex="regex.fullName"
-            errorMsg="El campo de Nombre no puede estar vacío y se debe introducir nombre y apellido"
+            errorMsg="El campo de Nombre no puede estar vacío y se debe introducir nombre y apellido y no más de 30 caracteres"
         />
         <base-input
             v-if="type == 'Particular'"
@@ -28,7 +28,7 @@
             id="NID"
             placeholder="DNI"
             :regex="regex.id"
-            errorMsg="El campo de DNI no puede estar vacío y se deben introducir solo 8 números"
+            errorMsg="El campo de DNI no puede estar vacío y se deben introducir entre 8 y 20 números"
         />
         <base-text-area
           v-else-if="type == 'ONG'"
@@ -50,7 +50,7 @@
             id="username"
             placeholder="Nombre de Usuario"
             :regex="regex.username"
-            errorMsg="El nombre de usuario debe contener entre 8 y 30 caracteres y puede contener números, letras y los caracteres: _ y ."
+            errorMsg="El nombre de usuario debe contener entre 5 y 16 caracteres y puede contener números, letras y los caracteres: _ y ."
         />
         <base-input
             v-model="password"
@@ -59,21 +59,23 @@
             id="password"
             placeholder="Contraseña"
             :regex="regex.password"
-            errorMsg="La contraseña debe tener por lo menos 8 caracteres, por lo menos un caracter especial y por lo menos un número"
+            errorMsg="La contraseña debe tener entre 8 y 16 caracteres, por lo menos un caracter especial, por lo menos una mayúscula y una minúscula y por lo menos un número"
         />
         <base-input
             v-model="location.country"
             name="country"
             id="country"
             placeholder="País de Residencia"
-            errorMsg="El nombre del país no puede estar vacío y no puede contener números"
+            errorMsg="El nombre del país no puede estar vacío y no puede contener números y debe tener entre 1 y 30 caracteres"
+            :regex="regex.country"
         />
         <base-input
             v-model="location.province"
             name="province"
             id="province"
             placeholder="Provincia de Residencia"
-            errorMsg="La provincia no puede estar vacía y no puede contener números"
+            errorMsg="La provincia no puede estar vacía y no puede contener números y debe tener entre 1 y 30 caracteres"
+            :regex="regex.country"
         />
         <base-input
             v-model="location.address"
@@ -81,7 +83,7 @@
             id="address"
             placeholder="Dirección"
             :regex="regex.address"
-            errorMsg="La dirección puede tener los siguientes formatos: Rivadavia 504, Rivadavia, Rivadavia Calle 504"
+            errorMsg="La dirección puede tener los siguientes formatos: Rivadavia 504, Rivadavia, Calle Rivadavia 504 y debe contener entre 1 y 30 caracteres"
         />
         <contact-form v-model="contact"></contact-form>
         <div :class="['error-message-container', error.visibility, error.title]" role="alert">
@@ -138,7 +140,7 @@ export default {
       },
       userData: {},
       type: 'Particular',
-      description: '',
+      description: null,
       fullName: '',
       username: '',
       email: '',
@@ -156,19 +158,20 @@ export default {
       },
       errorMessages: [],
       regex: {
-        username: /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{8,30}$/,
-        fullName: /^([A-za-z]+[\s]{1}[A-za-z]+)$/,
-        password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+        username: /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{5,15}$/,
+        fullName: /^([a-zA-ZñáéíúúÁÉÍÓÚàèìòùÀÈÌÒÙ][\s]{0,1}){1,30}$/,
+        password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,16}$/,
         email: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
-        address: /^(([A-za-z]+[\s]{1}([A-za-z]+[\s]{1})*[0-9]*))$/,
-        id: /^([0-9]{8})$/,
+        // eslint-disable-next-line no-useless-escape
+        address: /^[A-Za-z0-9'\.\-\s\,]{1,30}$/,
+        id: /^([0-9]{8,20})$/,
+        country: /^([a-zA-ZñáéíúúÁÉÍÓÚàèìòùÀÈÌÒÙ][\s]{0,1}){1,30}$/,
       },
     }
   },
   methods: {
     allInputsAreValid() {
       if (this.fullName.isValid
-        && this.id.isValid
         && this.username.isValid
         && this.email.isValid
         && this.password.isValid
@@ -177,7 +180,8 @@ export default {
         && this.location.address.isValid
         && this.contact.instagram.isValid
         && this.contact.facebook.isValid
-        && this.contact.whatsapp.isValid) {
+        && this.contact.whatsapp.isValid
+        && (this.id.isValid || (this.description && this.description.trim() !== ''))) {
         console.log('All inputs are valid')
         this.createUserData()
         this.emitUserData()
@@ -202,8 +206,8 @@ export default {
       }
       if (this.type === 'Particular') {
         this.userData.NID = this.id.value
-      } else {
-        this.userData.description = this.description.value
+      } else if (this.type === 'ONG') {
+        this.userData.description = this.description
       }
     },
     emitUserData() {
