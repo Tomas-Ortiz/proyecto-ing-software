@@ -20,6 +20,7 @@
     "prefer-const": "warn",
     "comma-dangle": "warn",
     "consistent-return": "warn",
-    "arrow-body-style": "off"
+    "arrow-body-style": "off",
+    "no-useless-escape": "off"
   }
 }
