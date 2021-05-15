@@ -1,5 +1,5 @@
 <template>
-  <signup-card>
+  <base-signup-card>
     <template #image>
       <h2></h2>
       <p></p>
@@ -13,16 +13,16 @@
     </template>
     <template #forgot>
     </template>
-  </signup-card>
+  </base-signup-card>
 </template>
 
 <script>
-import SignupCard from '../SignupCard.vue'
+import BaseSignupCard from '../layout/BaseSignupCard.vue'
 import SignupForm from '../SignupForm.vue';
 
 export default {
   components: {
-    'signup-card': SignupCard,
+    'base-signup-card': BaseSignupCard,
     'signup-form': SignupForm,
   },
   data() {
