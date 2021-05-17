@@ -7,7 +7,7 @@ const userController = {
     let result = {};
     try {
       const user = new User(req.body);
-      user.password = await User.encryptPassword(user.password);
+      user.account.password = await User.encryptPassword(user.account.password);
       await user.save();
       result = {
         success: true,
@@ -49,8 +49,10 @@ const userController = {
     let result = {};
     try {
       const user = req.body;
-      if (user.password) {
-        user.password = await User.encryptPassword(user.password);
+      if (user.account.password) {
+        user.account.password = await User.encryptPassword(
+          user.account.password
+        );
       }
       // se usa findOneAndUpdate ya que updateOne no devuelve un documento
       // new: true para devolver el documento ya actualizado
