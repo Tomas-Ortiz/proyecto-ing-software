@@ -1,17 +1,17 @@
 <template>
-  <div class="input-container">
-    <input
-      :type="type"
+  <div class="dropdown-container">
+    <select
       :id="id"
-      :class="[className + '-input', { valid: isValid }]"
       :name="name"
-      :placeholder="placeholder"
       v-model="value"
-      @keyup="emitInputValue"
-    />
-    <!-- <base-error-message
-        :errorMsg="errorMsg"
-      /> -->
+      :class="[className + '-select', { valid: isValid }]"
+      @change="emitSelectedOption"
+    >
+      <option value="" selected disabled hidden>{{ defaultValue }}</option>
+      <option v-for="option in options" :key="option" :value="option">{{
+        option
+      }}</option>
+    </select>
     <div
       :class="['error-message-container', errorMessageVisibility]"
       role="alert"
@@ -37,12 +37,7 @@
 </template>
 
 <script>
-// import BaseErrorMessageVue from './BaseErrorMessage.vue'
-
 export default {
-  // components: {
-  //   'base-error-message': BaseErrorMessageVue,
-  // },
   emits: ['update:modelValue'],
   props: {
     className: {
@@ -50,28 +45,19 @@ export default {
       required: false,
       default: 'form',
     },
-    type: {
+    id: {
       type: String,
-      required: false,
-      default: 'text',
+      required: true,
     },
     name: {
       type: String,
       required: true,
     },
-    id: {
-      type: String,
-      required: true,
-    },
-    placeholder: {
-      type: String,
+    options: Array,
+    defaultValue: {
+      type: [String, Number],
       required: false,
-    },
-    regex: {
-      type: RegExp,
-      required: false,
-      // default: /^(?=.{1,40}$)[a-zA-Z]+(?:[-'\s][a-zA-Z]+)*$/g,
-      default: /^([A-Za-z]+)$/,
+      default: 'Default value',
     },
     errorMsg: {
       type: String,
@@ -87,7 +73,7 @@ export default {
     };
   },
   methods: {
-    emitInputValue() {
+    emitSelectedOption() {
       if (!this.isValid) {
         this.errorMessageVisibility = 'block';
       } else {
@@ -101,22 +87,22 @@ export default {
   },
   computed: {
     isValid() {
-      return this.regex.test(this.value);
+      return this.value !== '' && this.value !== this.defaultValue;
     },
   },
 };
 </script>
 
 <style lang="postcss" scoped>
-.form-input {
+.form-select {
   @apply my-4 w-4/5 mx-auto;
-  @apply appearance-none bg-transparent focus:outline-none leading-tight;
+  @apply bg-transparent focus:outline-none leading-tight;
   @apply border-b-2 border-pink-800;
 }
-.form-input.valid {
+.form-select.valid {
   @apply border-green-800;
 }
-.form-input.invalid {
+.form-select.invalid {
   @apply border-red-800;
 }
 .error-message-container {
