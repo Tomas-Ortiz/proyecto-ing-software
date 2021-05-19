@@ -6,7 +6,7 @@
       <img
         src="../../assets/images/signup-card-image.jpg"
         alt="a cat wearing a crown"
-      />
+      >
     </template>
     <template #title>
       <h1 class="title">{{ signupFormData.title }}</h1>
@@ -14,7 +14,8 @@
     <template #form>
       <signup-form></signup-form>
     </template>
-    <template #forgot> </template>
+    <template #forgot>
+    </template>
   </base-signup-card>
 </template>
 
@@ -51,17 +52,17 @@ export default {
 
 <style lang="postcss" scoped>
 img {
-  @apply w-full h-full object-cover object-center filter blur-sm ;
+  @apply w-full h-full object-cover object-center filter blur-sm;
 }
 .image-container > h2,
 .image-container > p {
   @apply absolute text-gray-300 z-10;
 }
 .image-container > h2 {
-  @apply mx-32 text-3xl mt-16
+  @apply mx-32 text-3xl mt-16;
 }
 .image-container > p {
-  @apply mx-24 text-2xl mt-24
+  @apply mx-24 text-2xl mt-24;
 }
 
 .title {
