@@ -1,6 +1,6 @@
 <template>
     <button type="submit"
-      :class="{disabled: isDisabled}"
+      :class="[{disabled: isDisabled}]"
       :disabled="isDisabled">
       {{ isDisabled ? disabledText : buttonText }}
     </button>
@@ -31,7 +31,7 @@ export default {
 <style lang="postcss" scoped>
 button {
   @apply w-4/5 my-4 mx-auto p-2;
-  @apply rounded bg-pink-900 text-gray-200;
+  @apply rounded text-gray-200 bg-pink-900;
   @apply tracking-widest font-bold;
 }
 .disabled {

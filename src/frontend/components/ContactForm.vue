@@ -66,7 +66,7 @@ export default {
   methods: {
     inputsAreValid() {
       return this.instagramEx.test(this.contact.instagram)
-        && this.facebookEx.test(this.contact.facebook) 
+        && this.facebookEx.test(this.contact.facebook)
         && this.whatsappEx.test(this.contact.whatsapp)
     },
     emitContact() {
@@ -84,8 +84,11 @@ export default {
 .contact-title {
   @apply text-xl text-gray-800 font-semibold;
 }
+.input-container {
+  @apply inline w-3/5;
+}
 .contact-option > .input-container > input {
-  @apply w-3/5;
+  @apply w-3/5 inline-block;
 }
 .contact-option {
   @apply mt-4;
