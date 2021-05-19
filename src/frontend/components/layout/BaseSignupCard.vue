@@ -4,14 +4,14 @@
       <slot name="image"></slot>
     </div>
     <div class="container">
-        <div class="title-container">
-          <slot name="title"></slot>
-        </div>
-        <div class="form-container">
-          <slot name="form"></slot>
-        </div>
-        <slot name="forgot"></slot>
-        <!-- <div class="forgot-container">
+      <div class="title-container">
+        <slot name="title"></slot>
+      </div>
+      <div class="form-container">
+        <slot name="form"></slot>
+      </div>
+      <slot name="forgot"></slot>
+      <!-- <div class="forgot-container">
           <slot name="forgot"></slot>
         </div> -->
     </div>

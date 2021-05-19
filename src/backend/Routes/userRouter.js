@@ -11,7 +11,7 @@ const router = express.Router();
 // validacionesCampos es un middleware propio que valida los campos de entrada
 // antes de mandarlo al controller
 router.post('/register', userValidationRules(), validate, controller.register);
-router.post(
+router.put(
   '/updateProfile',
   userValidationRules(),
   validate,

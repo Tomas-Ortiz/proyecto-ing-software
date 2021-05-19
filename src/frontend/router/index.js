@@ -1,26 +1,29 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import Signup from '../views/Signup.vue';
 import Profile from '../views/Profile.vue';
 
+const nameApp = 'Puppers';
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+    meta: { title: nameApp },
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    // Carga diferida: solo se carga el componente cuando se accede a la ruta
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    meta: { title: `${nameApp} - About Us` },
   },
   {
     path: '/signup',
     name: 'Signup',
     component: Signup,
+    meta: { title: `${nameApp} - Registrarse` },
   },
   {
     path: '/profile/:id',
@@ -32,6 +35,11 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  next();
 });
 
 export default router;
