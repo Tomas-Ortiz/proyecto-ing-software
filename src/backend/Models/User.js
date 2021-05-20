@@ -44,4 +44,13 @@ userSchema.statics.encryptPassword = async (password) => {
   return bcrypt.hash(password, salt);
 };
 
+/* userSchema.statics.compareEncryptedPasswords =  compareEncryptedPasswords(loginpassword){
+  if (!bcrypt.compareSync(loginpassword, user.password)){
+    return res.status(400).json({
+      title: 'login failed',
+      error: 'wrong password'
+    })
+  }
+} */
+
 module.exports = mongoose.model('User', userSchema);

@@ -35,8 +35,8 @@ export default {
         },
       },
       signinFormData: {
-        title: 'Bienvenido de vuela',
-        footer: 'Te olvidaste la contraseña?',
+        title: 'Bienvenido de vuelta',
+        footer: '¿Te olvidaste la contraseña?',
         image: {
           url: '../../assets/images/signup-card-image.jpg',
           alt: 'un gato usando una corona',

@@ -21,6 +21,14 @@
     "semi": "off",
     "max-len": "off",
     "no-undef": "warn",
-    "no-trailing-spaces": "warn"
+    "no-trailing-spaces": "warn",
+    "comma-dangle": "off",
+    "consistent-return": "off",
+    "operator-linebreak": "off",
+    "no-useless-escape": "off",
+    "vue/no-unused-components": "warn",
+    "global-require": "warn",
+    "import/no-unresolved": "warn",
+    "vue/no-parsing-error": "off"
   }
 }
