@@ -1,4 +1,9 @@
 # Proyecto Puppers
+![last-commit](https://img.shields.io/github/last-commit/Tomas-Ortiz/puppers)
+![vue-version](https://img.shields.io/badge/Vue-3-brightgreen)
+![node-version](https://img.shields.io/badge/Node->=12.0.0-brightgreen)
+![npm-version](https://img.shields.io/badge/npm->=6.14.0-brightgreen)
+![contributors](https://img.shields.io/github/contributors/Tomas-Ortiz/puppers)
 
 Puppers es una página web para la adopción de mascotas.
 
@@ -19,7 +24,7 @@ Abrir una terminal y escribir el comando:
 ```
 npm run serve
 ```
-Abrir una segundo terminal y escribir el comando:
+Abrir una segunda terminal y escribir el comando:
 ```
 mongod
 ```
