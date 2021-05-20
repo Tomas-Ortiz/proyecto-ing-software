@@ -1,7 +1,7 @@
 const { body, validationResult } = require('express-validator');
 
 const userValidationRules = () => {
-  const soloLetrasYTildes = /^[A-Za-zñáéíóú\s]+$/;
+  const soloLetrasYTildes = /^[a-zA-ZñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙ\s]+$/;
   return [
     body('fullname')
       .if(body('fullname').exists())
@@ -27,8 +27,8 @@ const userValidationRules = () => {
       .isLength({ max: 100 })
       .withMessage('La descripción no puede pasar de 100 caracteres'),
 
-    body('email')
-      .if(body('email').exists())
+    body('account.email')
+      .if(body('account.email').exists())
       .notEmpty()
       .withMessage('El email no puede estar vacío')
       .isEmail()
@@ -36,8 +36,8 @@ const userValidationRules = () => {
       .normalizeEmail()
       .trim(),
 
-    body('username')
-      .if(body('username').exists())
+    body('account.username')
+      .if(body('account.username').exists())
       .isLength({ min: 5, max: 16 })
       .withMessage(
         'El username debe tener como mínimo 5 caracteres y 16 como máximo'
@@ -47,8 +47,8 @@ const userValidationRules = () => {
       .contains(' ')
       .withMessage('El nombre de usuario no puede tener espacios'),
 
-    body('password')
-      .if(body('password').exists())
+    body('account.password')
+      .if(body('account.password').exists())
       .isLength({
         min: 8,
         max: 16,

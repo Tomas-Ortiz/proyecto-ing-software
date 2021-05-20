@@ -7,7 +7,7 @@
       :value="value"
       @click="emitInputValue"
       :checked="checked"
-    >
+    />
     <label :for="id">{{ value }}</label>
   </div>
 </template>
@@ -34,14 +34,14 @@ export default {
   data() {
     return {
       id: this.value.toLocaleLowerCase(),
-    }
+    };
   },
   methods: {
     emitInputValue() {
-      this.$emit('update:modelValue', this.value)
+      this.$emit('update:modelValue', this.value);
     },
   },
-}
+};
 </script>
 
 <style lang="postcss" scoped>

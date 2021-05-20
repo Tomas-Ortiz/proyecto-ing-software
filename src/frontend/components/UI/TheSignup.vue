@@ -1,9 +1,12 @@
 <template>
-  <signup-card>
+  <base-signup-card>
     <template #image>
       <h2></h2>
       <p></p>
-      <img src="../../assets/images/signup-card-image.jpg" alt="a cat wearing a crown">
+      <img
+        src="../../assets/images/signup-card-image.jpg"
+        alt="a cat wearing a crown"
+      />
     </template>
     <template #title>
       <h1 class="title">{{ signupFormData.title }}</h1>
@@ -11,24 +14,23 @@
     <template #form>
       <signup-form></signup-form>
     </template>
-    <template #forgot>
-    </template>
-  </signup-card>
+    <template #forgot> </template>
+  </base-signup-card>
 </template>
 
 <script>
-import SignupCard from '../SignupCard.vue'
+import BaseSignupCard from '../layout/BaseSignupCard.vue';
 import SignupForm from '../SignupForm.vue';
 
 export default {
   components: {
-    'signup-card': SignupCard,
+    'base-signup-card': BaseSignupCard,
     'signup-form': SignupForm,
   },
   data() {
     return {
       signupFormData: {
-        title: 'Unite a la comunidad',
+        title: '¡Únete a la comunidad!',
         image: {
           url: '../../assets/images/signup-card-image.jpg',
           alt: 'un gato usando una corona',
@@ -42,7 +44,7 @@ export default {
           alt: 'un gato usando una corona',
         },
       },
-    }
+    };
   },
-}
+};
 </script>

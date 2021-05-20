@@ -4,14 +4,14 @@
       <slot name="image"></slot>
     </div>
     <div class="container">
-        <div class="title-container">
-          <slot name="title"></slot>
-        </div>
-        <div class="form-container">
-          <slot name="form"></slot>
-        </div>
-        <slot name="forgot"></slot>
-        <!-- <div class="forgot-container">
+      <div class="title-container">
+        <slot name="title"></slot>
+      </div>
+      <div class="form-container">
+        <slot name="form"></slot>
+      </div>
+      <slot name="forgot"></slot>
+      <!-- <div class="forgot-container">
           <slot name="forgot"></slot>
         </div> -->
     </div>
@@ -28,17 +28,17 @@
   @apply overflow-hidden hidden md:block;
 }
 img {
-  @apply w-full h-full object-cover object-center filter blur-sm ;
+  @apply w-full h-full object-cover object-center filter blur-sm;
 }
 .image-container > h2,
 .image-container > p {
   @apply absolute text-gray-300 z-10;
 }
 .image-container > h2 {
-  @apply mx-32 text-3xl mt-16
+  @apply mx-32 text-3xl mt-16;
 }
 .image-container > p {
-  @apply mx-24 text-2xl mt-24
+  @apply mx-24 text-2xl mt-24;
 }
 
 .container {
@@ -50,7 +50,6 @@ img {
 .form-container {
   @apply row-span-4;
 }
-
 .forgot-container {
   @apply mb-8 border-t border-pink-900 w-5/6 mx-auto;
 }

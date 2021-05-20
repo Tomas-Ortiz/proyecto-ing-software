@@ -13,6 +13,7 @@ const router = express.Router();
 router.post('/register', userValidationRules(), validate, controller.register);
 router.post('/login', userValidationRules(), validate, controller.login);
 router.post(
+router.put(
   '/updateProfile',
   userValidationRules(),
   validate,

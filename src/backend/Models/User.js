@@ -15,17 +15,22 @@ const userSchema = new Schema({
     type: { country: String, city: String, address: String },
     required: true,
   },
-  username: { type: String, unique: true, required: true },
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
-  contact: {
-    _id: false,
-    type: [{ contactType: String, value: String }],
-    required: true,
-  },
+  contact: [
+    {
+      _id: false,
+      contactType: {
+        type: String,
+        required: [true, 'El tipo de contacto es requerido'],
+      },
+      value: { type: String, required: [true, 'El contacto es requerido'] },
+    },
+  ],
   profilePicture: String,
   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   account: {
+    username: { type: String, unique: true, required: true },
+    email: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
     createdAt: { type: Date, default: Date.now(), required: true },
     isActive: { type: Boolean, default: true, required: true },
     isConfirmed: { type: Boolean, default: false, required: true },
