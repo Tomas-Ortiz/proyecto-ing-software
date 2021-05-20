@@ -3,7 +3,8 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/signup">Signup</router-link>
+      <router-link to="/signup">Signup</router-link> |
+      <router-link to="/profile/test-id">Profile</router-link>
     </div>
     <router-view />
   </div>
@@ -18,7 +19,7 @@
 }
 
 #nav {
-  @apply absolute z-30 p-3 w-screen text-center;
+  @apply z-30 p-3 w-full text-center bg-pink-600;
 }
 
 #nav a {

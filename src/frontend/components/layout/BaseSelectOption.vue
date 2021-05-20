@@ -1,11 +1,17 @@
 <template>
-  <div>
-    <textarea
+  <div class="dropdown-container">
+    <select
+      :id="id"
+      :name="name"
       v-model="value"
-      :class="{ valid: isValid, invalid: !isValid }"
-      :placeholder="placeholder"
-      @keyup="emitInputValue"
-    ></textarea>
+      :class="[className + '-select', { valid: isValid }]"
+      @change="emitSelectedOption"
+    >
+      <option value="" selected disabled hidden>{{ defaultValue }}</option>
+      <option v-for="option in options" :key="option" :value="option">{{
+        option
+      }}</option>
+    </select>
     <div
       :class="['error-message-container', errorMessageVisibility]"
       role="alert"
@@ -32,26 +38,34 @@
 
 <script>
 export default {
+  emits: ['update:modelValue'],
   props: {
-    modelValue: {},
-    placeholder: {
+    className: {
       type: String,
       required: false,
-      default: '¡Ingresa tu texto aquí!',
+      default: 'form',
     },
-    regex: {
-      type: RegExp,
+    id: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    options: Array,
+    defaultValue: {
+      type: [String, Number],
       required: false,
-      default: /^[a-zA-ZñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙ0-9][a-zA-ZñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙ0-9¡!¿?#'|°"$%&/()=+.,{}*¨¨´´@:;[\]_-\s]{0,99}$/,
+      default: 'Default value',
     },
     errorMsg: {
       type: String,
       required: false,
-      default:
-        'La descripción solo puede contener entre 1 y 100 caracteres, puede contener letras, números, y caracteres especiales',
+      default: '',
     },
+    modelValue: {},
   },
-  emits: ['update:modelValue'],
   data() {
     return {
       value: '',
@@ -59,7 +73,7 @@ export default {
     };
   },
   methods: {
-    emitInputValue() {
+    emitSelectedOption() {
       if (!this.isValid) {
         this.errorMessageVisibility = 'block';
       } else {
@@ -73,28 +87,29 @@ export default {
   },
   computed: {
     isValid() {
-      return this.regex.test(this.value);
+      return this.value !== '' && this.value !== this.defaultValue;
     },
   },
 };
 </script>
 
 <style lang="postcss" scoped>
-textarea {
-  @apply my-4 w-4/5 mx-auto resize-none rounded h-40;
-  @apply bg-gray-300 focus:outline-none leading-tight text-xs p-4;
+.form-select {
+  @apply my-4 w-4/5 mx-auto;
+  @apply bg-transparent focus:outline-none leading-tight;
+  @apply border-b-2 border-pink-800;
 }
-.valid {
-  @apply bg-green-300 text-gray-900;
+.form-select.valid {
+  @apply border-green-800;
 }
-.invalid {
-  @apply bg-red-400 text-gray-900;
+.form-select.invalid {
+  @apply border-red-800;
 }
 .error-message-container {
   @apply bg-red-100 border border-red-400 text-red-700;
   @apply w-4/5 mx-auto px-4 py-3 rounded relative;
 }
 .error-message {
-  @apply block sm:inline placeholder-current;
+  @apply block sm:inline;
 }
 </style>

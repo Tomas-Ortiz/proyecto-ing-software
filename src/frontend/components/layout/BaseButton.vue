@@ -1,5 +1,6 @@
 <template>
-    <button type="submit"
+    <button
+      type="submit"
       :class="{disabled: isDisabled}"
       :disabled="isDisabled">
       {{ isDisabled ? disabledText : buttonText }}
@@ -22,16 +23,16 @@ export default {
     disabledText: {
       type: String,
       required: false,
-      default: 'algunos campos son incorrectos',
+      default: 'Algunos campos son incorrectos',
     },
   },
-}
+};
 </script>
 
 <style lang="postcss" scoped>
 button {
   @apply w-4/5 my-4 mx-auto p-2;
-  @apply rounded bg-pink-900 text-gray-200;
+  @apply rounded text-gray-200 bg-pink-900;
   @apply tracking-widest font-bold;
 }
 .disabled {
