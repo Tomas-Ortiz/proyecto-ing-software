@@ -10,15 +10,22 @@ Una vez instalados los programas, crear una carpeta vacía, abrir la terminal y 
 
 ```bash
 git pull https://github.com/Tomas-Ortiz/puppers/blob/develop/README.md
+...
 npm i
 ```
 
 ## Usage
-Abrir tres terminal y escribir un comando en cada terminal:
+Abrir una terminal y escribir el comando:
 ```
 npm run serve
-npx nodemon
+```
+Abrir una segundo terminal y escribir el comando:
+```
 mongod
+```
+Abrir una tercera y escribir el comando:
+```
+npx nodemon
 ```
 Luego en el navegador abrir la dirección: http://localhost:8080/
 <!-- ## License
