@@ -13,6 +13,8 @@
 </template>
 
 <script>
+// import axios from 'axios'
+
 import BaseProfileContact from '../layout/profile/BaseProfileContact.vue';
 import BaseProfileFields from '../layout/profile/BaseProfileFields.vue';
 import BaseProfilePhoto from '../layout/profile/BaseProfilePhoto.vue';
@@ -23,24 +25,44 @@ export default {
     'profile-fields': BaseProfileFields,
     'profile-photo': BaseProfilePhoto,
   },
+  data() {
+    return {
+      user: null,
+      error: []
+    }
+  },
+  // created() {
+  //   console.log('Getting the User...');
+  //   this.getUser();
+  //   console.log(this.user);
+  // },
+  // methods: {
+  //   getUser() {
+  //     const countriesURL = 'localhost:3000/getUser/asd';
+  //     axios
+  //       .get(countriesURL)
+  //       .then((response) => {
+  //         this.user = response.data.map((country) => country.name);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error)
+  //       });
+  //   }
+  // },
 }
 </script>
 
 <style lang="postcss" scoped>
 .profile-container {
-  @apply h-full grid grid-rows-3 md:grid-rows-none md:grid-cols-12;
-  /* @apply min-w-full bg-purple-400; */
+  @apply h-full grid md:grid-rows-none md:grid-cols-12 md:mx-0 mx-10;
 }
 .photos-container {
   @apply md:col-span-3;
-  /* @apply bg-red-200; */
 }
 .fields-container {
-  @apply md:border-l-4 md:border-r-4 md:col-span-6;
-  /* @apply bg-yellow-200 border-pink-800; */
+  @apply md:border-l-4 md:border-r-4 md:border-pink-900 md:col-span-6;
 }
 .contacts-container {
   @apply md:col-span-3;
-  /* @apply bg-blue-200; */
 }
 </style>

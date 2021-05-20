@@ -25,14 +25,14 @@ export default {
 
 <style lang="postcss" scoped>
 .photo-container {
-    @apply w-full;
+    @apply w-full mt-7 md:grid md:grid-rows-3;
 }
 .profile-photo {
-    @apply mx-auto block object-cover object-center mt-10;
+    @apply mx-auto block object-cover object-center;
     @apply w-48 h-48 rounded-full cursor-pointer;
 }
 .delete-account-btn {
-    @apply w-5/12 md:w-4/5 md:mt-96;
-    @apply block mx-auto bg-red-500;
+    @apply w-5/12 md:w-4/5;
+    @apply block mx-auto my-2 bg-red-500 md:row-start-4;
 }
 </style>

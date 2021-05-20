@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import Signup from '../views/Signup.vue';
-import Profile from '../views/Profile.vue';
 
 const nameApp = 'Puppers';
 const routes = [
@@ -15,8 +14,7 @@ const routes = [
     path: '/about',
     name: 'About',
     // Carga diferida: solo se carga el componente cuando se accede a la ruta
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
     meta: { title: `${nameApp} - About Us` },
   },
   {
@@ -28,7 +26,9 @@ const routes = [
   {
     path: '/profile/:id',
     name: 'Profile',
-    component: Profile,
+    // Carga diferida: solo se carga el componente cuando se accede a la ruta
+    component: () => import('../views/Profile.vue'),
+    meta: { title: `${nameApp} - Perfil` },
   },
 ];
 

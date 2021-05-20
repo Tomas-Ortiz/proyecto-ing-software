@@ -21,6 +21,6 @@ export default {
 <style lang="postcss" scoped>
 .signup-background {
   @apply bg-gradient-to-tr from-red-400 via-pink-800 to-pink-900;
-  @apply absolute w-screen min-h-screen;
+  @apply absolute w-full min-h-screen;
 }
 </style>

@@ -124,6 +124,6 @@ export default {
   @apply w-4/5 mx-auto px-4 py-3 rounded relative;
 }
 .error-message {
-  @apply block sm:inline;
+  @apply inline sm:inline;
 }
 </style>

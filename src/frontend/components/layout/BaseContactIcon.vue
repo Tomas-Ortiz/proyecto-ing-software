@@ -10,8 +10,7 @@ export default {
     name: {
       type: String,
       required: true,
-      validator: (value) =>
-        ['instagram', 'facebook', 'whatsapp'].indexOf(value) !== -1,
+      validator: (value) => ['instagram', 'facebook', 'whatsapp'].indexOf(value) !== -1,
     },
   },
   data() {
