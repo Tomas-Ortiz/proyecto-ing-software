@@ -1,8 +1,6 @@
 <template>
   <base-signup-card>
     <template #image>
-      <h2></h2>
-      <p></p>
       <img
         src="../../assets/images/signup-card-image.jpg"
         alt="a cat wearing a crown"
@@ -34,7 +32,7 @@ export default {
         title: '¡Únete a la comunidad!',
         image: {
           url: '../../assets/images/signup-card-image.jpg',
-          alt: 'un gato usando una corona',
+          alt: 'Un gato usando una corona',
         },
       },
       signinFormData: {
@@ -42,7 +40,7 @@ export default {
         footer: '¿Te olvidaste la contraseña?',
         image: {
           url: '../../assets/images/signup-card-image.jpg',
-          alt: 'un gato usando una corona',
+          alt: 'Un gato usando una corona',
         },
       },
     };

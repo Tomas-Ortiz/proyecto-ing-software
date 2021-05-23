@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="radio-container">
     <input
       type="radio"
       :name="name"

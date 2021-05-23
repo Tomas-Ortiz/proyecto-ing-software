@@ -82,7 +82,10 @@ export default {
 <style lang="postcss" scoped>
 textarea {
   @apply my-4 w-4/5 mx-auto resize-none rounded h-40;
-  @apply bg-gray-300 focus:outline-none leading-tight text-xs p-4;
+  @apply bg-gray-300 focus:outline-none leading-tight text-sm p-4;
+}
+textarea::placeholder {
+  @apply text-gray-800 italic;
 }
 .valid {
   @apply bg-green-300 text-gray-900;

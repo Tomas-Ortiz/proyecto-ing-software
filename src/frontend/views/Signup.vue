@@ -7,6 +7,7 @@
 
 <script>
 import TheSignup from '../components/UI/TheSignup.vue';
+
 // import TheLogin from '../components/UI/TheLogin.vue'
 
 export default {
