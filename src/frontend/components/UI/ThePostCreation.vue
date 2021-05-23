@@ -27,3 +27,9 @@ export default {
   },
 };
 </script>
+
+<style lang="postcss" scoped>
+.title {
+  @apply text-3xl font-semibold text-gray-900 my-10 md:mt-14;
+}
+</style>

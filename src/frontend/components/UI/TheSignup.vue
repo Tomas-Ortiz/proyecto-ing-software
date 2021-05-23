@@ -4,7 +4,7 @@
       <img
         src="../../assets/images/signup-card-image.jpg"
         alt="a cat wearing a crown"
-      >
+      />
     </template>
     <template #title>
       <h1 class="title">{{ signupFormData.title }}</h1>
@@ -12,8 +12,7 @@
     <template #form>
       <signup-form></signup-form>
     </template>
-    <template #forgot>
-    </template>
+    <template #forgot> </template>
   </base-signup-card>
 </template>
 
@@ -62,11 +61,9 @@ img {
 .image-container > p {
   @apply mx-24 text-2xl mt-24;
 }
-
 .title {
   @apply text-3xl font-semibold text-gray-900 my-10 md:mt-14;
 }
-
 .forgot-container {
   @apply mb-8 border-t border-pink-900 w-5/6 mx-auto;
 }

@@ -14,8 +14,8 @@ const routes = [
     path: '/about',
     name: 'About',
     // Carga diferida: solo se carga el componente cuando se accede a la ruta
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-    meta: { title: `${nameApp} - About Us` },
+    component: () => import('../views/About.vue'),
+    meta: { title: `${nameApp} - Acerca de nosotros` },
   },
   {
     path: '/signup',
@@ -38,7 +38,6 @@ const routes = [
   {
     path: '/profile/:id',
     name: 'Profile',
-    // Carga diferida: solo se carga el componente cuando se accede a la ruta
     component: () => import('../views/Profile.vue'),
     meta: { title: `${nameApp} - Perfil` },
   },
