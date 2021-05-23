@@ -4,7 +4,7 @@
       <router-link to="/">Inicio</router-link> |
       <router-link to="/about">¿Quiénes somos?</router-link> |
       <router-link to="/signup">Registrarse</router-link> |
-      <router-link to="/create-post">Dar en adopción</router-link>
+      <router-link to="/create-post">Dar en adopción</router-link> |
       <router-link to="/profile/test-id">Perfil</router-link>
     </div>
     <div class="h-full">
