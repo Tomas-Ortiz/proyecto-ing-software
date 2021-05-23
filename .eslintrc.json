@@ -29,6 +29,12 @@
     "vue/no-unused-components": "warn",
     "global-require": "warn",
     "import/no-unresolved": "warn",
-    "vue/no-parsing-error": "off"
+    "vue/no-parsing-error": "off",
+    "no-new": "off",
+    "import/first": "warn",
+    "import/order": "warn",
+    "no-restricted-syntax": "off",
+    "arrow-body-style": "off",
+    "no-underscore-dangle": "warn"
   }
 }

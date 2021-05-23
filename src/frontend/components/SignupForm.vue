@@ -174,7 +174,6 @@ export default {
       },
     };
   },
-
   created() {
     this.getCountries();
   },
@@ -193,7 +192,6 @@ export default {
     },
     allInputsAreValid() {
       if (this.validFields()) {
-        console.log('All inputs are valid');
         this.createUserData();
         this.emitUserData();
       } else {
@@ -233,16 +231,12 @@ export default {
       axios
         .post(serverURL, this.userData)
         .then((response) => {
-          console.log('RESPONSE');
-          console.log(response.data);
           this.showMessage('Éxito', response.data.msg, 'block');
           document.getElementById('idSignupForm').reset();
           document.getElementById('submit-button').disabled = true;
           setTimeout(window.location.reload.bind(window.location), 2500);
         })
         .catch((error) => {
-          console.log('ERROR');
-          console.log(error.response.data);
           this.showMessage('Error', error.response.data, 'block');
         });
     },

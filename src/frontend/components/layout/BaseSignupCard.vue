@@ -40,7 +40,6 @@ img {
 .image-container > p {
   @apply mx-24 text-2xl mt-24;
 }
-
 .container {
   @apply md:col-start-2 grid grid-rows-1 items-center text-center;
 }

@@ -22,7 +22,19 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup,
-    meta: { title: `${nameApp} - Registrarse` },
+    meta: { title: `${nameApp} - Registrate` },
+  },
+  {
+    path: '/create-post',
+    name: 'CreatePost',
+    component: () => import('../views/PostCreation.vue'),
+    meta: { title: `${nameApp} - Crea tu publicación` },
+  },
+  {
+    path: '/:catchAll(.*)*',
+    name: 'PageNotFound',
+    component: () => import('../views/PageNotFound.vue'),
+    meta: { title: `${nameApp} - Página no encontrada` },
   },
 ];
 

@@ -7,7 +7,9 @@
       :name="name"
       :placeholder="placeholder"
       v-model="value"
+      :min="min"
       @keyup="emitInputValue"
+      @change="emitInputValue"
     />
     <!-- <base-error-message
         :errorMsg="errorMsg"
@@ -65,6 +67,10 @@ export default {
     },
     placeholder: {
       type: String,
+      required: false,
+    },
+    min: {
+      type: Number,
       required: false,
     },
     regex: {

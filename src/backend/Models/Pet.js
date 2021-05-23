@@ -8,7 +8,7 @@ const petSchema = new Schema({
   type: { type: String, required: true },
   name: String,
   age: Number,
-  gender: { type: String, enum: ['macho', 'hembra'], required: true },
+  gender: { type: String, enum: ['Macho', 'Hembra'], required: true },
   colour: { type: String, required: true },
   petDescription: String,
   petPictures: [String],
