@@ -35,6 +35,6 @@
     "import/order": "warn",
     "no-restricted-syntax": "off",
     "arrow-body-style": "off",
-    "no-underscore-dangle": "warn"
+    "no-underscore-dangle": "off"
   }
 }
