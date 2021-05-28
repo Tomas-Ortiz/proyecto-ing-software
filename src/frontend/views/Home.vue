@@ -14,3 +14,9 @@ export default {
   name: 'Home',
 };
 </script>
+
+<style lang="postcss" scoped>
+.home {
+  @apply flex h-screen justify-center items-center;
+}
+</style>
