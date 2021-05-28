@@ -2,15 +2,21 @@
   <div class="home">
     <the-banner></the-banner>
     <div class="main-home">
-      <the-header class="header"></the-header>
+
+      <the-header class="header">
+        <router-link class="slot router text-2xl text-gray-200 font-semibold" to="/create-post">Crear Publicación</router-link>
+      </the-header>
+
       <div class="results">
+
         <base-home-filter class="filters-container"></base-home-filter>
+
         <div class="cards-container">
-          <base-pet-card class="card"></base-pet-card>
-          <base-pet-card class="card"></base-pet-card>
-          <base-pet-card class="card"></base-pet-card>
+          <base-pet-card class="card" v-for="item in test" :key="item"></base-pet-card>
         </div>
+
       </div>
+
     </div>
   </div>
 </template>
@@ -29,6 +35,11 @@ export default {
     'base-home-filter': BaseHomeFilter,
   },
   name: 'Home',
+  data() {
+    return {
+      test: [1, 2, 3, 4, 5, 6],
+    }
+  },
 };
 </script>
 
@@ -40,15 +51,18 @@ export default {
   @apply h-screen;
 }
 .results {
-  @apply grid grid-cols-12;
+  @apply grid grid-cols-12 grid-rows-1;
 }
 .filters-container {
-  @apply col-span-3 lg:col-span-2;
+  @apply h-full col-span-3 lg:col-span-2;
 }
 .cards-container {
   @apply col-span-9 p-10 md:grid md:grid-cols-2 lg:grid-cols-3;
 }
 .card {
   @apply m-auto my-5;
+}
+.search-bar {
+  @apply border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none;
 }
 </style>

@@ -20,7 +20,7 @@
   @apply col-span-5 md:col-span-3;
 }
 .header-slot {
-  @apply col-start-7 col-span-6 md:col-start-10 md:col-span-3 grid grid-rows-2;
+  @apply col-start-7 col-span-6 md:col-start-10 md:col-span-3 grid grid-cols-1;
 }
 .header-title,
 .header-slot {
