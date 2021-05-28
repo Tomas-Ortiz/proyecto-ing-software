@@ -1,7 +1,7 @@
 <template>
   <div class="banner-container">
-    <div class="banner-link login">Login</div>
-    <div class="banner-link signup">Join</div>
+    <div class="banner-link login"><router-link to="/signup">Login</router-link></div>
+    <div class="banner-link signup"><router-link to="/signup">Registrarse</router-link></div>
     <img
       src="../../assets/images/banner-image.jpg"
       class="banner-image"
@@ -32,11 +32,14 @@
   @apply col-end-3;
 }
 .signup {
-  @apply col-end-13;
+  @apply col-end-11 md:col-end-12;
 }
 .banner-title {
   @apply row-start-3 col-start-3 col-span-8 md:col-start-5 md:col-span-4;
   @apply text-6xl md:text-7xl lg:text-8xl xl:text-9xl;
-  @apply text-gray-900;
+  @apply text-gray-200;
+}
+.banner-title {
+  text-shadow: 4px 3px 3px rgba(0,0,0,0.68);
 }
 </style>
