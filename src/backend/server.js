@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const connectionDB = require('./Models/connectionDB');
 const userRouter = require('./Routes/userRouter');
+const postRouter = require('./Routes/postRouter');
 
 const server = express();
 
@@ -19,6 +20,7 @@ server.use(express.urlencoded({ extended: true }));
 
 // Rutas
 server.use('/', userRouter);
+server.use('/', postRouter);
 
 // Iniciar el servidor y ponerlo a la escucha
 server.listen(port, (error) => {

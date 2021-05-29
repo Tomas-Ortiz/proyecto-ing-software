@@ -2,7 +2,7 @@ const express = require('express');
 const {
   userValidationRules,
   validate,
-} = require('../Middlewares/dataValidator');
+} = require('../Middlewares/userValidator');
 const validateToken = require('../Middlewares/tokenValidator');
 const controller = require('../Controllers/userController');
 
