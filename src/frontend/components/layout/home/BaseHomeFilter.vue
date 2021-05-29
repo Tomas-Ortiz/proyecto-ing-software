@@ -19,11 +19,11 @@
         </div>
         <div class="filter">
           <h2 class="filter-title">Color</h2>
-          <p class="filter-type" v-for="item in species" :key="item">{{ item }}</p>
+          <p class="filter-type" v-for="item in colors" :key="item">{{ item }}</p>
         </div>
         <div class="filter">
           <h2 class="filter-title">Género</h2>
-          <p class="filter-type" v-for="item in species" :key="item">{{ item }}</p>
+          <p class="filter-type" v-for="item in genders" :key="item">{{ item }}</p>
         </div>
       </div>
     </div>
