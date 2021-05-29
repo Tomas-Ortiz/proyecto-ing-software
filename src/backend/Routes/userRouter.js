@@ -16,7 +16,7 @@ router.put(
   '/updateProfile',
   userValidationRules(),
   validate,
-  controller.updateProfile,
+  controller.updateProfile
 );
 router.get('/getUser', validateToken, controller.getUser);
 
