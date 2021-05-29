@@ -158,7 +158,7 @@
             <br />
             <label
               ><strong
-                >{{ images.filesNumber }} imágenes subidas ({{
+                >{{ images.filesNumber }} imágenes seleccionadas ({{
                   images.totalSizeMB
                 }}
                 MB)</strong
@@ -268,14 +268,8 @@ export default {
   methods: {
     allInputsAreValid() {
       if (this.validFields()) {
-        console.log('All inputs are valid');
         this.createPostData();
-        // this.emitPostData();
-        // this.emitPostImages();
-        console.log(this.post);
-        document.getElementById('submit-button').disabled = true;
-        // A posteriori, redireccionar a post/:id para ver la publicación
-        setTimeout(() => this.$router.push({ name: 'Home' }), 3000);
+        this.emitPostData();
       } else {
         const message =
           'Algunos de los campos ingresados no son correctos, asegurate de que ninguno se encuentre vacío';
@@ -285,7 +279,7 @@ export default {
     createPostData() {
       this.post = {
         // this.user._id
-        userId: 123,
+        author: '60aaf9145bfd89325c11bac2',
         title: this.title.value,
         pet: {
           gender: this.pet.gender,
@@ -295,11 +289,15 @@ export default {
           type: this.pet.type.value,
           quantity: Number(this.pet.quantity.value),
           // this.user.location
-          location: 'user location',
-          images: this.images.petImages,
+          location: {
+            country: 'Argentina',
+            city: 'Mendoza',
+            address: 'Teurlay 706',
+          },
         },
       };
-      // Campos opcionales, solo se asignan al objeto post si existen
+      // Campos opcionales, solo se asignan al objeto "post" si existen
+      // Código a refactorizar
       if (this.pet.name && this.pet.name.value.trim() !== '') {
         this.post.pet.name = this.pet.name.value;
       }
@@ -357,29 +355,38 @@ export default {
       axios
         .post(createPostURL, this.post)
         .then((response) => {
-          this.postId = response.data.postId;
-          console.log(this.postId);
-          this.showMessage('Éxito', response.data.msg, 'block');
+          // Si se crea con éxito el post recién ahí se envían las imágenes
+          // postId para saber el post al que hay que agregarle las imágenes
+          if (response.status === 200) {
+            this.postId = response.data.postId;
+            this.emitPostImages();
+          }
         })
         .catch((error) => {
           this.showMessage('Error', error.response.data, 'block');
         });
     },
-    // FormData es una API Web para enviar datos de formulario
-    // Es compatible con axios
     emitPostImages() {
       const formData = new FormData();
-      const uploadPostImagesURL = 'http://localhost:3000/upload-post-images';
+      const uploadImagesURL = 'http://localhost:3000/upload-images';
+      formData.append('postId', this.postId);
       for (const i of Object.keys(this.images.petImages)) {
-        formData.append('images', this.images.petImages[i]);
+        formData.append('files', this.images.petImages[i]);
       }
       axios
-        .post(uploadPostImagesURL, FormData)
+        .post(uploadImagesURL, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
         .then((response) => {
-          console.log(response.data);
+          this.showMessage('Éxito', response.data.msg, 'block');
+          document.getElementById('submit-button').disabled = true;
+          // redireccionar a post/:postId para ver la publicación
+          setTimeout(() => this.$router.push({ name: 'Home' }), 4000);
         })
         .catch((error) => {
-          console.log(error.response.data);
+          this.showMessage('Error', error.response.data, 'block');
         });
     },
     uploadImage(event) {
@@ -421,7 +428,8 @@ export default {
     },
     fileTypesAreValid() {
       for (const i of Object.keys(this.images.petImages)) {
-        if (!this.images.petImages[i].type.includes('image')) {
+        const { type } = this.images.petImages[i];
+        if (!type.includes('image')) {
           return false;
         }
       }
@@ -440,7 +448,7 @@ export default {
   },
 };
 </script>
-<!-- No colocar scoped, eso genera un error desconocido (investigar) -->
+<!-- No colocar scoped, genera un error desconocido (investigar) -->
 <style lang="postcss">
 .form {
   @apply grid grid-rows-1;
