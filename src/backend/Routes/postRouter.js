@@ -30,4 +30,6 @@ router.get(
   controller.getPost
 );
 
+router.get('/get-posts', controller.getPosts);
+
 module.exports = router;
