@@ -55,6 +55,18 @@ const postController = {
       return res.status(400).send(result);
     }
   },
+
+  getPosts: async (req, res) => {
+    let result = {};
+    try {
+      const posts = await Post.find({ isActive: true }).orFail();
+      result = { success: true, posts };
+      return res.status(200).send(result);
+    } catch (err) {
+      result = { success: false, msg: err.message };
+      return res.status(400).send(result);
+    }
+  },
 };
 
 module.exports = postController;
