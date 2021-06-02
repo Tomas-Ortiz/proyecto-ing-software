@@ -481,11 +481,7 @@ export default {
   },
 };
 </script>
-<<<<<<< HEAD
-
-=======
 <!-- No colocar scoped, genera un error desconocido (investigar) -->
->>>>>>> 033ee877478451ee22a900b9fffa5b22df90bc8c
 <style lang="postcss">
 .form {
   @apply grid grid-rows-1 py-5;
