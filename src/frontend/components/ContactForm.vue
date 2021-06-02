@@ -47,7 +47,7 @@
 
 <script>
 import BaseInput from './layout/BaseInput.vue';
-import BaseContactIcon from './layout/BaseContactIcon.vue';
+import BaseContactIcon from './layout/BaseSVGIcon.vue';
 
 export default {
   components: {
