@@ -14,10 +14,3 @@ export default {
   name: 'PostCreation',
 };
 </script>
-
-<style lang="postcss" scoped>
-.postCreation-background {
-  @apply bg-gradient-to-tr from-red-400 via-pink-800 to-pink-900;
-  @apply absolute w-screen min-h-screen;
-}
-</style>
