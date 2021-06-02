@@ -9,12 +9,17 @@
 
       <div class="results">
 
-        <base-home-filter class="filters-container"></base-home-filter>
+        <base-home-filter
+          class="filters-container"
+          v-model="searchbarQuery"
+          @keyup="searchPosts"
+        ></base-home-filter>
 
         <div class="cards-container">
           <base-pet-card
-            v-for="post in posts" :key="post"
             class="card"
+            v-for="post in filteredPosts"
+            :key="post"
             :routerParam="post._id"
             :imageSrc="post.pet.images[0].path"
             :imageAlt="getImageAlt(post)"
@@ -48,7 +53,8 @@ export default {
     return {
       posts: [],
       filters: [],
-      seachbarQuery: [],
+      filteredPosts: [],
+      searchbarQuery: '',
     }
   },
   created() {
@@ -61,6 +67,7 @@ export default {
         .get(getPostsURL)
         .then((posts) => {
           this.posts = posts.data.posts;
+          this.filteredPosts = this.posts;
         })
         .catch((error) => {
           console.log(error.response.data);
@@ -71,6 +78,21 @@ export default {
         llamado ${post.pet.name}, 
         con ${post.pet.age} ${post.pet.ageTime} de edad. 
         El ${post.pet.species} es de color ${post.pet.colour}.`
+    },
+    searchPosts() {
+      const query = this.searchbarQuery.toLowerCase();
+      if (this.searchbarQuery !== '') {
+        this.filteredPosts = this.posts.filter((post) => {
+          return post.title.toLowerCase().includes(query) ||
+                 post.pet.name.toLowerCase().includes(this.searchbarQuery) ||
+                 post.pet.species.toLowerCase().includes(this.searchbarQuery) ||
+                 post.pet.location.country.toLowerCase().includes(this.searchbarQuery) ||
+                 post.pet.location.city.toLowerCase().includes(this.searchbarQuery) ||
+                 post.pet.colour.toLowerCase().includes(this.searchbarQuery)
+        });
+      } else {
+        this.filteredPosts = this.posts;
+      }
     },
   },
 }

@@ -3,7 +3,15 @@
     <div class="container-title">
       <h1>FILTROS</h1>
       <div class="search-bar-container">
-        <input type="text" class="search-bar" name="search-bar" id="search-bar" placeholder="Buscar...">
+        <input
+          type="text"
+          class="search-bar"
+          v-model="searchbarQuery"
+          @keyup="emitInputValue"
+          name="search-bar"
+          id="search-bar"
+          placeholder="Buscar..."
+        >
         <base-svg-icon name="search" class="search-bar-icon"></base-svg-icon>
       </div>
       <div class="filters">
@@ -31,14 +39,20 @@ export default {
   components: {
     'base-svg-icon': BaseSVGIcon,
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       species: ['perro', 'gato', 'ave', 'reptil', 'conejo', '...'],
       colors: ['rojo', 'verde', 'amarillo', 'negro', 'blanco', 'marrón', 'azul', '...'],
       genders: ['macho', 'hembra', 'desconocido', '...'],
       filters: [],
-      searchbarQuery: [],
+      searchbarQuery: '',
     }
+  },
+  methods: {
+    emitInputValue() {
+      this.$emit('update:modelValue', this.searchbarQuery);
+    },
   },
 }
 </script>
