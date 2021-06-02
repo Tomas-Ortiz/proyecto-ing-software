@@ -5,119 +5,161 @@
     class="form"
     ref="postForm"
   >
-    <base-input
-      v-model="title"
-      id="title"
-      name="title"
-      placeholder="Título de la publicación"
-      :regex="regex.title"
-      errorMsg="El título no puede estar vacío, ni tener espacios innecesarios, y debe contener entre 8 y 60 caracteres"
-    ></base-input>
+    <div class="small-container">
+      <label class="input-label" for="title">
+        Título de la publicación:
+      </label>
+      <base-input
+        v-model="title"
+        id="title"
+        name="title"
+        size="big"
+        placeholder="Título de la publicación"
+        :regex="regex.title"
+        errorMsg="El título no puede estar vacío, ni tener espacios innecesarios, y debe contener entre 8 y 60 caracteres"
+      ></base-input>
+    </div>
+    <div class="small-container">
+      <label class="input-label" for="name">
+        Nombre de la mascota*:
+      </label>
     <base-input
       v-model="pet.name"
       id="name"
       name="name"
-      placeholder="Nombre del animal (Opcional)"
+      size="big"
+      placeholder="Nombre"
       :regex="regex.name"
       errorMsg="El nombre solo debe tener letras, sin espacios innecesarios, y puede contener hasta 30 caracteres"
     ></base-input>
-    <div class="gender-container">
-      <base-radio
-        v-model="pet.gender"
-        name="gender"
-        value="Macho"
-        :checked="true"
-      />
-      <base-radio v-model="pet.gender" name="gender" value="Hembra" />
     </div>
-    <br />
-    <div class="age-contanier">
-      <label class="text-gray-500" for="age">
-        Edad del animal
+
+    <base-gender-form v-model="pet.gender"></base-gender-form>
+
+    <div class="small-container">
+      <label class="input-label" for="age">
+        Edad de la mascota:
+      </label>
+      <div class="grid">
+        <base-input
+          v-model.number="pet.age"
+          id="age"
+          name="age"
+          type="number"
+          size="small"
+          placeholder="Edad"
+          :min="1"
+          :regex="regex.age"
+          errorMsg="La edad no puede estar vacía, solo puede contener números, éstos deben ser positivos y no superar los 4 dígitos"
+        ></base-input>
+        <base-select-option
+          id="selectTime"
+          name="time"
+          v-model="pet.ageTime"
+          :options="time"
+          defaultValue="expresada en..."
+          errorMsg="Debes seleccionar una opción válida"
+          class="text-left w-44"
+        ></base-select-option>
+      </div>
+    </div>
+    <div class="small-container">
+      <label class="input-label" for="color">
+        Color de la mascota:
       </label>
       <base-input
-        v-model.number="pet.age"
-        id="age"
-        name="age"
-        type="number"
-        placeholder="Edad del animal"
-        :min="1"
-        :regex="regex.age"
-        errorMsg="La edad no puede estar vacía, solo puede contener números, éstos deben ser positivos y no superar los 4 dígitos"
+        v-model.number="pet.colour"
+        id="color"
+        name="color"
+        size="small"
+        placeholder="Color (opcional)"
+        :regex="regex.colour"
+        errorMsg="El color solo puede contener letras, sin espacios innecesarios, y no puede superar los 30 caracteres"
       ></base-input>
+    </div>
+
+    <div class="small-container">
+      <label class="input-label" for="animalType">
+        Tipo de mascota:
+      </label>
       <base-select-option
-        id="selectTime"
-        name="time"
-        v-model="pet.ageTime"
-        :options="time"
-        defaultValue="Edad expresada en"
+        id="animalType"
+        name="animalType"
+        v-model="pet.type"
+        :options="animalTypes"
+        defaultValue="Tipo de mascota"
         errorMsg="Debes seleccionar una opción válida"
+        class="text-left"
       ></base-select-option>
     </div>
-    <base-input
-      v-model.number="pet.colour"
-      id="color"
-      name="color"
-      placeholder="Color del animal (Opcional)"
-      :regex="regex.colour"
-      errorMsg="El color solo puede contener letras, sin espacios innecesarios, y no puede superar los 30 caracteres"
-    ></base-input>
-    <base-select-option
-      id="animalType"
-      name="animalType"
-      v-model="pet.type"
-      :options="animalTypes"
-      defaultValue="Tipo de animal"
-      errorMsg="Debes seleccionar una opción válida"
-    ></base-select-option>
-    <base-select-option
-      id="species"
-      name="species"
-      v-model="pet.species"
-      :options="speciesList"
-      defaultValue="Especie"
-      errorMsg="Debes seleccionar una opción válida"
-    ></base-select-option>
-    <label class="text-gray-500" for="quantity">
-      Cantidad de animales
-    </label>
-    <base-input
-      v-model.number="pet.quantity"
-      id="quantity"
-      name="quantity"
-      type="number"
-      placeholder="Cantidad de animales (Mínimo 1)"
-      :min="1"
-      :regex="regex.age"
-      errorMsg="La cantidad no puede estar vacía, solo puede contener números, éstos deben ser positivos y no superar los 4 dígitos"
-    ></base-input>
-    <base-text-area
-      v-model="pet.characteristics"
-      :regex="regex.animalCharacteristics"
-      placeholder="Otras características del animal:&#10;Raza&#10;Pelaje&#10;Tamaño&#10;Esperanza de vida&#10;Estado del animal&#10;Vacunas"
-      errorMsg="Las características pueden contener letras, números y símbolos, sin espacios innecesarios, hasta 250 caracteres como máximo"
-    />
-    <div class="location-container">
-      <label class="text-gray-500" for="location">
-        ¿Dónde se encuentra el animal?
+
+    <div class="small-container">
+      <label class="input-label" for="species">
+        Especie:
+      </label>
+      <base-select-option
+        id="species"
+        name="species"
+        v-model="pet.species"
+        :options="speciesList"
+        defaultValue="Especie"
+        errorMsg="Debes seleccionar una opción válida"
+        class="text-left"
+      ></base-select-option>
+    </div>
+
+    <div class="small-container">
+      <label class="input-label" for="location">
+        Ubicación de la mascota:
       </label>
       <base-radio
         v-model="pet.location"
         id="location"
         name="location"
-        value="Usar la localidad configurada en Mi Perfil"
+        value="Usar la ubicación de Mi Perfil"
         :checked="true"
+        class="text-left w-full"
       />
     </div>
-    <br />
-    <div class="adoption-conditions-container">
-      <label class="text-gray-500" for="location"
-        >¿Qué condiciones debe cumplir el adoptante?
+
+    <div class="small-container">
+      <label class="input-label" for="quantity">Cantidad de animales:</label>
+      <base-input
+        v-model.number="pet.quantity"
+        id="quantity"
+        name="quantity"
+        size="small"
+        type="number"
+        placeholder="Cantidad"
+        :min="1"
+        :regex="regex.age"
+        errorMsg="La cantidad no puede estar vacía, solo puede contener números, éstos deben ser positivos y no superar los 4 dígitos"
+      ></base-input>
+    </div>
+
+    <div class="big-container">
+      <label class="input-label mx-auto" for="description">
+        Escribí una breve descripción de tu mascota
       </label>
       <base-text-area
+        id="description"
+        changeStyle="post-creation-style"
+        v-model="pet.characteristics"
+        :regex="regex.animalCharacteristics"
+        placeholder="Otras características del animal:&#10;Raza&#10;Pelaje&#10;Tamaño&#10;Esperanza de vida&#10;Estado del animal&#10;Vacunas"
+        errorMsg="Las características pueden contener letras, números y símbolos, sin espacios innecesarios, hasta 250 caracteres como máximo"
+      />
+    </div>
+
+    <div class="big-container">
+      <label class="input-label mx-auto" for="location">
+        ¿Qué condiciones debe cumplir el adoptante?
+      </label>
+      <base-text-area
+        changeStyle="post-creation-style"
         v-model="pet.adoptionConditions"
         :regex="regex.adoptionConditions"
-        placeholder="1. Condición1&#10;2. Condición2&#10;3. Condición3&#10;&#10;&#10;..."
+        placeholder="1. Condición 1&#10;2. Condición 2&#10;3. Condición 3&#10;..."
         errorMsg="Las condiciones de adopción puede contener letras, números y símbolos, hasta 250 caracteres como máximo"
       />
     </div>
@@ -158,7 +200,7 @@
             <br />
             <label
               ><strong
-                >{{ images.filesNumber }} imágenes subidas ({{
+                >{{ images.filesNumber }} imágenes seleccionadas ({{
                   images.totalSizeMB
                 }}
                 MB)</strong
@@ -168,34 +210,18 @@
         </div>
       </div>
     </div>
-    <div
-      :class="['error-message-container', error.visibility, error.title]"
-      role="alert"
-    >
-      <strong class="font-bold">{{ error.title }}!</strong><br />
-      <span class="error-message">{{ error.message }}</span>
-      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-        <svg
-          class="fill-current h-6 w-6 text-red-500"
-          role="button"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          @click="error.visibility = 'hidden'"
-        >
-          <title>Close</title>
-          <path
-            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
-          />
-        </svg>
-      </span>
-    </div>
+    <base-error-message
+      :errorMsg="error.message"
+      :errorTitle="error.title"
+      :class="[errorMessageVisibility, size]"
+      @click="errorMessageVisibility = 'hidden'"
+    ></base-error-message>
     <base-button
       name="submit-button"
       id="submit-button"
       class="submit"
       type="submit"
       buttonText="Publicar"
-      :isDisabled="false"
     />
   </form>
 </template>
@@ -203,18 +229,24 @@
 import axios from 'axios';
 
 import BaseButton from './layout/BaseButton.vue';
-import BaseInput from './layout/BaseInput.vue';
 import BaseSelectOption from './layout/BaseSelectOption.vue';
 import BaseTextArea from './layout/BaseTextArea.vue';
 import BaseRadio from './layout/BaseRadio.vue';
+import BaseGenderForm from './layout/post/BasePostGenderForm.vue'
+import BasePostInput from './layout/post/BasePostInput.vue'
+import BaseErrorMessage from './layout/BaseErrorMessage.vue'
+import BasePostFileInput from './layout/post/BasePostFileInput.vue'
 
 export default {
   components: {
-    'base-input': BaseInput,
     'base-button': BaseButton,
     'base-select-option': BaseSelectOption,
     'base-text-area': BaseTextArea,
     'base-radio': BaseRadio,
+    'base-gender-form': BaseGenderForm,
+    'base-input': BasePostInput,
+    'base-error-message': BaseErrorMessage,
+    'base-post-file-input': BasePostFileInput,
   },
   created() {
     this.getUser();
@@ -231,7 +263,7 @@ export default {
       post: {},
       pet: {
         name: '',
-        gender: 'Macho',
+        gender: 'Sin Género',
         age: 0,
         ageTime: '',
         colour: '',
@@ -263,19 +295,14 @@ export default {
         title: 'Error',
         visibility: 'hidden',
       },
+      errorMessageVisibility: 'hidden',
     };
   },
   methods: {
     allInputsAreValid() {
       if (this.validFields()) {
-        console.log('All inputs are valid');
         this.createPostData();
-        // this.emitPostData();
-        // this.emitPostImages();
-        console.log(this.post);
-        document.getElementById('submit-button').disabled = true;
-        // A posteriori, redireccionar a post/:id para ver la publicación
-        setTimeout(() => this.$router.push({ name: 'Home' }), 3000);
+        this.emitPostData();
       } else {
         const message =
           'Algunos de los campos ingresados no son correctos, asegurate de que ninguno se encuentre vacío';
@@ -285,7 +312,7 @@ export default {
     createPostData() {
       this.post = {
         // this.user._id
-        userId: 123,
+        author: '60aaf9145bfd89325c11bac2',
         title: this.title.value,
         pet: {
           gender: this.pet.gender,
@@ -295,11 +322,15 @@ export default {
           type: this.pet.type.value,
           quantity: Number(this.pet.quantity.value),
           // this.user.location
-          location: 'user location',
-          images: this.images.petImages,
+          location: {
+            country: 'Argentina',
+            city: 'Mendoza',
+            address: 'Teurlay 706',
+          },
         },
       };
-      // Campos opcionales, solo se asignan al objeto post si existen
+      // Campos opcionales, solo se asignan al objeto "post" si existen
+      // Código a refactorizar
       if (this.pet.name && this.pet.name.value.trim() !== '') {
         this.post.pet.name = this.pet.name.value;
       }
@@ -357,29 +388,38 @@ export default {
       axios
         .post(createPostURL, this.post)
         .then((response) => {
-          this.postId = response.data.postId;
-          console.log(this.postId);
-          this.showMessage('Éxito', response.data.msg, 'block');
+          // Si se crea con éxito el post recién ahí se envían las imágenes
+          // postId para saber el post al que hay que agregarle las imágenes
+          if (response.status === 200) {
+            this.postId = response.data.postId;
+            this.emitPostImages();
+          }
         })
         .catch((error) => {
           this.showMessage('Error', error.response.data, 'block');
         });
     },
-    // FormData es una API Web para enviar datos de formulario
-    // Es compatible con axios
     emitPostImages() {
       const formData = new FormData();
-      const uploadPostImagesURL = 'http://localhost:3000/upload-post-images';
+      const uploadImagesURL = 'http://localhost:3000/upload-images';
+      formData.append('postId', this.postId);
       for (const i of Object.keys(this.images.petImages)) {
-        formData.append('images', this.images.petImages[i]);
+        formData.append('files', this.images.petImages[i]);
       }
       axios
-        .post(uploadPostImagesURL, FormData)
+        .post(uploadImagesURL, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
         .then((response) => {
-          console.log(response.data);
+          this.showMessage('Éxito', response.data.msg, 'block');
+          document.getElementById('submit-button').disabled = true;
+          // redireccionar a post/:postId para ver la publicación
+          setTimeout(() => this.$router.push({ name: 'Home' }), 4000);
         })
         .catch((error) => {
-          console.log(error.response.data);
+          this.showMessage('Error', error.response.data, 'block');
         });
     },
     uploadImage(event) {
@@ -421,7 +461,8 @@ export default {
     },
     fileTypesAreValid() {
       for (const i of Object.keys(this.images.petImages)) {
-        if (!this.images.petImages[i].type.includes('image')) {
+        const { type } = this.images.petImages[i];
+        if (!type.includes('image')) {
           return false;
         }
       }
@@ -440,10 +481,26 @@ export default {
   },
 };
 </script>
-<!-- No colocar scoped, eso genera un error desconocido (investigar) -->
+<!-- No colocar scoped, genera un error desconocido (investigar) -->
 <style lang="postcss">
 .form {
-  @apply grid grid-rows-1;
+  @apply grid grid-rows-1 py-5;
+}
+.small-container {
+  @apply grid grid-cols-2 grid-rows-none;
+}
+.big-container {
+  @apply grid;
+}
+.small-container,
+.big-container {
+  @apply my-5;
+}
+.photo-container {
+  @apply grid md:mx-10;
+}
+.input-label {
+  @apply font-semibold text-lg md:text-xl xl:text-2xl text-left;
 }
 .input-file {
   @apply h-full w-full opacity-0;

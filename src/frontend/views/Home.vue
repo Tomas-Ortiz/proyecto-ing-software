@@ -37,7 +37,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      test: [1, 2, 3, 4, 5, 6],
+      test: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
     }
   },
 };
@@ -57,7 +57,7 @@ export default {
   @apply h-full col-span-3 lg:col-span-2;
 }
 .cards-container {
-  @apply col-span-9 p-10 md:grid md:grid-cols-2 lg:grid-cols-3;
+  @apply col-span-9 p-10 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
 }
 .card {
   @apply m-auto my-5;

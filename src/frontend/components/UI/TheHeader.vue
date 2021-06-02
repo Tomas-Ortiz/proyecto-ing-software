@@ -17,14 +17,17 @@
   @apply bg-pink-900 h-20 grid grid-cols-12 items-center;
 }
 .header-title {
-  @apply col-span-5 md:col-span-3;
+  @apply col-span-5 md:col-span-3 w-full;
 }
 .header-slot {
-  @apply col-start-7 col-span-6 md:col-start-10 md:col-span-3 grid grid-cols-1;
+  @apply w-full col-start-7 col-span-6 md:col-start-10 md:col-span-3 grid grid-cols-1;
 }
 .header-title,
 .header-slot {
-  @apply w-full text-center;
+  @apply text-center;
+}
+.title {
+  @apply text-center;
 }
 .router {
   @apply text-3xl font-bold text-gray-200;
