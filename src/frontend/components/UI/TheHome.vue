@@ -12,7 +12,14 @@
         <base-home-filter class="filters-container"></base-home-filter>
 
         <div class="cards-container">
-          <base-pet-card class="card" v-for="item in test" :key="item"></base-pet-card>
+          <base-pet-card
+            v-for="post in posts" :key="post"
+            class="card"
+            :routerParam="post._id"
+            :imageSrc="post.pet.images[1]"
+            :imageAlt="getImageAlt(post)"
+            :cardTitle="post.title"
+          ></base-pet-card>
         </div>
 
       </div>
@@ -22,6 +29,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 import TheBanner from './TheBanner.vue';
 import TheHeader from './TheHeader.vue';
 import BaseHomePetCard from '../layout/home/BaseHomePetCard.vue';
@@ -38,7 +47,32 @@ export default {
   data() {
     return {
       test: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+      posts: [],
     }
+  },
+  created() {
+    this.getPosts();
+  },
+  methods: {
+    getPosts() {
+      const getPostsURL = 'http://localhost:3000/get-posts';
+      axios
+        .get(getPostsURL)
+        .then((posts) => {
+          this.posts = posts.data.posts;
+          console.log(this.posts);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          // this.$router.push({ name: 'Signin' });
+        });
+    },
+    getImageAlt(post) {
+      return `Imagen de un ${post.pet.species}, 
+        llamado ${post.pet.name}, 
+        con ${post.pet.age} ${post.pet.ageTime} de edad. 
+        El ${post.pet.species} es de color ${post.pet.colour}`
+    },
   },
 }
 </script>
