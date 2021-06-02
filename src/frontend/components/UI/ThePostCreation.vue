@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import BasePostCreationCard from '../layout/BasePostCreationCard.vue';
+import BasePostCreationCard from '../layout/post/BasePostCreationCard.vue';
 import PostForm from '../PostForm.vue';
 
 export default {
@@ -30,6 +30,6 @@ export default {
 
 <style lang="postcss" scoped>
 .title {
-  @apply text-3xl font-semibold text-gray-900 my-10 md:mt-14;
+  @apply text-3xl font-semibold text-pink-900;
 }
 </style>
