@@ -13,7 +13,10 @@
 
 <style lang="postcss" scoped>
 .banner-container {
-  @apply relative w-full h-screen overflow-x-hidden grid grid-rows-6 grid-cols-12;
+  @apply overflow-hidden relative w-full h-screen overflow-x-hidden grid grid-rows-6 grid-cols-12;
+}
+.banner-image {
+  transform: scale(1.1);
 }
 .banner-image {
   @apply z-0;
