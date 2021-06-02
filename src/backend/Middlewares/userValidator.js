@@ -9,7 +9,7 @@ const userValidationRules = () => {
       .withMessage('El nombre no puede estar vacío')
       .trim()
       .isLength({ max: 30 })
-      .withMessage('El nombre no puede pasar los 30 caracteres')
+      .withMessage('El nombre no debe superar los 30 caracteres')
       .matches(soloLetrasYTildes)
       .withMessage('El nombre solo debe contener letras'),
 
@@ -24,8 +24,11 @@ const userValidationRules = () => {
     body('description')
       .if(body('description').exists())
       .optional()
+      .notEmpty()
+      .withMessage('La descripción no puede estar vacía')
       .isLength({ max: 100 })
-      .withMessage('La descripción no puede pasar de 100 caracteres'),
+      .withMessage('La descripción no puede pasar de 100 caracteres')
+      .trim(),
 
     body('account.email')
       .if(body('account.email').exists())
@@ -111,6 +114,7 @@ const validate = (req, res, next) => {
     };
     return res.status(400).send(errors);
   }
+  // Si todo está bien entonces se ejecuta el controlador
   next();
 };
 

@@ -1,0 +1,3 @@
+# Ignorar todos los ficheros dentro del directorio (imágenes) menos el directorio (images/posts)
+*
+!.gitignore
