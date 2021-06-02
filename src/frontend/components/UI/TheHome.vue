@@ -16,7 +16,7 @@
             v-for="post in posts" :key="post"
             class="card"
             :routerParam="post._id"
-            :imageSrc="post.pet.images[1]"
+            :imageSrc="post.pet.images[0].path"
             :imageAlt="getImageAlt(post)"
             :cardTitle="post.title"
           ></base-pet-card>
@@ -46,8 +46,9 @@ export default {
   name: 'Home',
   data() {
     return {
-      test: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
       posts: [],
+      filters: [],
+      seachbarQuery: [],
     }
   },
   created() {
@@ -60,18 +61,16 @@ export default {
         .get(getPostsURL)
         .then((posts) => {
           this.posts = posts.data.posts;
-          console.log(this.posts);
         })
         .catch((error) => {
           console.log(error.response.data);
-          // this.$router.push({ name: 'Signin' });
         });
     },
     getImageAlt(post) {
       return `Imagen de un ${post.pet.species}, 
         llamado ${post.pet.name}, 
         con ${post.pet.age} ${post.pet.ageTime} de edad. 
-        El ${post.pet.species} es de color ${post.pet.colour}`
+        El ${post.pet.species} es de color ${post.pet.colour}.`
     },
   },
 }

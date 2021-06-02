@@ -46,7 +46,7 @@ export default {
   @apply w-60 h-48 object-cover object-center rounded-t-lg;
 }
 .card-title {
-  @apply h-16 text-xl px-2 py-2 font-semibold;
-  @apply overflow-hidden overflow-ellipsis text-justify;
+  @apply h-16 text-xl p-2 m-2 font-semibold;
+  @apply overflow-hidden overflow-ellipsis text-center;
 }
 </style>
