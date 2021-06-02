@@ -17,7 +17,7 @@
   @apply bg-pink-900 h-20 grid grid-cols-12 items-center;
 }
 .header-title {
-  @apply col-span-5 md:col-span-3 w-full;
+  @apply col-span-5 md:col-span-3 lg:col-span-2 w-full;
 }
 .header-slot {
   @apply w-full col-start-7 col-span-6 md:col-start-10 md:col-span-3 grid grid-cols-1;

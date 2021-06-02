@@ -17,15 +17,30 @@
       <div class="filters">
         <div class="filter">
           <h2 class="filter-title">Especie</h2>
-          <p class="filter-type" v-for="item in species" :key="item">{{ item }}</p>
+          <p
+            :class="['filter-type', { selected: filters.includes(item) }]"
+            v-for="item in species"
+            :key="item"
+            @click="selectFilter(item)"
+          >{{ item }}</p>
         </div>
         <div class="filter">
           <h2 class="filter-title">Color</h2>
-          <p class="filter-type" v-for="item in colors" :key="item">{{ item }}</p>
+          <p
+            :class="['filter-type', { selected: filters.includes(item) }]"
+            v-for="item in colors"
+            :key="item"
+            @click="selectFilter(item)"
+          >{{ item }}</p>
         </div>
         <div class="filter">
           <h2 class="filter-title">Género</h2>
-          <p class="filter-type" v-for="item in genders" :key="item">{{ item }}</p>
+          <p
+            :class="['filter-type', { selected: filters.includes(item) }]"
+            v-for="item in genders"
+            :key="item"
+            @click="selectFilter(item)"
+          >{{ item }}</p>
         </div>
       </div>
     </div>
@@ -42,36 +57,53 @@ export default {
   emits: ['update:modelValue'],
   data() {
     return {
-      species: ['perro', 'gato', 'ave', 'reptil', 'conejo', '...'],
-      colors: ['rojo', 'verde', 'amarillo', 'negro', 'blanco', 'marrón', 'azul', '...'],
-      genders: ['macho', 'hembra', 'desconocido', '...'],
+      species: ['perro', 'gato', 'ave', 'reptil', 'conejo'],
+      colors: ['rojo', 'verde', 'amarillo', 'negro', 'blanco', 'marrón', 'azul'],
+      genders: ['macho', 'hembra', 'desconocido'],
       filters: [],
       searchbarQuery: '',
     }
   },
   methods: {
     emitInputValue() {
-      this.$emit('update:modelValue', this.searchbarQuery);
+      this.$emit('update:modelValue', {
+        query: this.searchbarQuery,
+        filters: this.filters,
+      });
     },
+    selectFilter(filter) {
+      this.addFilter(filter);
+      this.emitInputValue();
+    },
+    addFilter(filter) {
+      if (!this.filters.includes(filter)) {
+        this.filters.push(filter);
+      } else {
+        const index = this.filters.indexOf(filter);
+        if (index > -1) {
+          this.filters.splice(index, 1);
+        }
+      }
+    }
   },
 }
 </script>
 
 <style lang="postcss" scoped>
 .filter-container {
-  @apply min-h-full w-full bg-pink-900;
+  @apply min-h-screen w-full bg-pink-900;
 }
 .container-title {
-  @apply text-xl md:text-2xl text-gray-200 font-bold text-center tracking-wider;
+  @apply text-xl md:text-2xl text-gray-200 font-bold text-center tracking-wider select-none;
 }
 .filter {
   @apply text-sm font-normal text-left my-5 mx-3 md:mx-10 lg:mx-16 xl:mx-20;
 }
 .filter-title {
-  @apply text-lg font-semibold;
+  @apply text-lg font-semibold select-none;
 }
 .filter-type {
-  @apply cursor-pointer w-min my-1;
+  @apply cursor-pointer w-min my-1 p-1 rounded-md select-none;
 }
 .search-bar-container {
   @apply bg-pink-200 text-gray-900;
@@ -83,5 +115,8 @@ export default {
 }
 .search-bar-icon {
   @apply h-7 w-7 fill-current col-start-2 m-auto;
+}
+.selected {
+  @apply bg-pink-500 bg-opacity-40;
 }
 </style>

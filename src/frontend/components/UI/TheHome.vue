@@ -11,11 +11,13 @@
 
         <base-home-filter
           class="filters-container"
-          v-model="searchbarQuery"
-          @keyup="searchPosts"
+          v-model="response"
+          @keyup="filterAndSearchPosts"
+          @click="filterAndSearchPosts"
         ></base-home-filter>
 
-        <div class="cards-container">
+        <div class="cards-container" v-show="filteredPosts.length !== 0">
+          <h1 class="results-title">Se encontraron {{ filteredPosts.length }} mascotas...</h1>
           <base-pet-card
             class="card"
             v-for="post in filteredPosts"
@@ -25,6 +27,18 @@
             :imageAlt="getImageAlt(post)"
             :cardTitle="post.title"
           ></base-pet-card>
+        </div>
+        <div class="cards-container" v-show="filteredPosts.length === 0">
+          <div class="no-results-container">
+            <h1 class="no-results-title">
+              No se encontraron resultados que coincidan con: {{ searchbarQuery }}
+            </h1>
+            <img
+              src="../../assets/illustrations/good-pet.svg"
+              class="no-results-illustration"
+              alt="Ilustración de una mujer acariciando a un perrito."
+            >
+          </div>
         </div>
 
       </div>
@@ -55,6 +69,7 @@ export default {
       filters: [],
       filteredPosts: [],
       searchbarQuery: '',
+      response: null,
     }
   },
   created() {
@@ -79,21 +94,63 @@ export default {
         con ${post.pet.age} ${post.pet.ageTime} de edad. 
         El ${post.pet.species} es de color ${post.pet.colour}.`
     },
+    filterAndSearchPosts() {
+      this.searchbarQuery = this.response.query;
+      const query = this.removeDiacritics(this.searchbarQuery);
+      this.filters = this.response.filters;
+
+      if (this.searchbarQuery !== '' && this.filters.length !== 0) {
+        this.filteredPosts = this.posts.filter((post) => {
+          return (this.removeDiacritics(post.title).includes(query) ||
+                 this.removeDiacritics(post.pet.name).includes(query) ||
+                 this.removeDiacritics(post.pet.species).includes(query) ||
+                 this.removeDiacritics(post.pet.location.country).includes(query) ||
+                 this.removeDiacritics(post.pet.location.city).includes(query) ||
+                 this.removeDiacritics(post.pet.colour).includes(query)) &&
+                 (this.filters.includes(this.removeDiacritics(post.pet.species)) ||
+                 this.filters.includes(this.removeDiacritics(post.pet.gender)) ||
+                 this.filters.includes(this.removeDiacritics(post.pet.colour)))
+        });
+      } else if (this.searchbarQuery !== '' && this.filters.length === 0) {
+        this.searchPosts();
+      } else {
+        this.filterPosts();
+      }
+    },
     searchPosts() {
-      const query = this.searchbarQuery.toLowerCase();
+      this.searchbarQuery = this.response.query;
+      const query = this.removeDiacritics(this.searchbarQuery);
+
       if (this.searchbarQuery !== '') {
         this.filteredPosts = this.posts.filter((post) => {
-          return post.title.toLowerCase().includes(query) ||
-                 post.pet.name.toLowerCase().includes(this.searchbarQuery) ||
-                 post.pet.species.toLowerCase().includes(this.searchbarQuery) ||
-                 post.pet.location.country.toLowerCase().includes(this.searchbarQuery) ||
-                 post.pet.location.city.toLowerCase().includes(this.searchbarQuery) ||
-                 post.pet.colour.toLowerCase().includes(this.searchbarQuery)
+          return this.removeDiacritics(post.title).includes(query) ||
+                 this.removeDiacritics(post.pet.name).includes(query) ||
+                 this.removeDiacritics(post.pet.species).includes(query) ||
+                 this.removeDiacritics(post.pet.location.country).includes(query) ||
+                 this.removeDiacritics(post.pet.location.city).includes(query) ||
+                 this.removeDiacritics(post.pet.colour).includes(query)
         });
       } else {
         this.filteredPosts = this.posts;
       }
     },
+    filterPosts() {
+      this.filters = this.response.filters;
+
+      if (this.filters.length !== 0) {
+        this.filteredPosts = this.posts.filter((post) => {
+          return this.filters.includes(this.removeDiacritics(post.pet.species)) ||
+                 this.filters.includes(this.removeDiacritics(post.pet.gender)) ||
+                 this.filters.includes(this.removeDiacritics(post.pet.colour))
+        });
+      } else {
+        this.filteredPosts = this.posts;
+      }
+    },
+    removeDiacritics(str) {
+      // Eliminar todos los signos diacríticos de un string
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    }
   },
 }
 </script>
@@ -104,6 +161,9 @@ export default {
 }
 .main-home {
   @apply h-screen;
+}
+.results-title {
+  @apply col-span-full ml-10 text-gray-600 italic text-lg;
 }
 .results {
   @apply grid grid-cols-12 grid-rows-1;
@@ -119,5 +179,14 @@ export default {
 }
 .search-bar {
   @apply border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none;
+}
+.no-results-container {
+  @apply col-span-full p-5;
+}
+.no-results-title {
+  @apply text-pink-900 text-2xl font-semibold text-center;
+}
+.no-results-illustration {
+  @apply mx-auto my-10;
 }
 </style>
