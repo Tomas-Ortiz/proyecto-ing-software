@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import Signup from '../views/Signup.vue';
+import Login from '../views/Login.vue';
 
 const nameApp = 'Puppers';
 const routes = [
@@ -41,6 +42,12 @@ const routes = [
     component: () => import('../views/Profile.vue'),
     meta: { title: `${nameApp} - Perfil` },
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    meta: { title: `${nameApp} - Inicia Sesión` },
+  }
 ];
 
 const router = createRouter({
