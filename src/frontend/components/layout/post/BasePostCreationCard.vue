@@ -13,13 +13,16 @@
 
 <style lang="postcss" scoped>
 .card-container {
-  @apply bg-gray-200 mx-auto mt-12 mb-10 lg:mt-28 rounded-md overflow-hidden;
-  @apply md:grid md:grid-cols-2 max-w-sm md:max-w-3xl lg:max-w-4xl;
+  @apply bg-gray-100 text-center py-10;
 }
 .container {
-  @apply md:col-start-2 grid grid-rows-1 items-center text-center;
+  @apply mx-auto px-5 md:px-20 lg:px-60 xl:px-96 2xl:px-96;
+}
+.form-container,
+.title-container {
+  @apply border-l-2 border-r-2 border-pink-900;
 }
 .form-container {
-  @apply row-span-4;
+  @apply px-5;
 }
 </style>

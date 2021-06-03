@@ -1,17 +1,13 @@
 <template>
-  <div class="home">
-    <h1>This is the homepage</h1>
-  </div>
+  <the-home></the-home>
 </template>
 
 <script>
+import TheHome from '../components/UI/TheHome.vue';
+
 export default {
-  name: 'Home',
+  components: {
+    'the-home': TheHome,
+  },
 };
 </script>
-
-<style lang="postcss" scoped>
-.home {
-  @apply flex h-screen justify-center items-center;
-}
-</style>

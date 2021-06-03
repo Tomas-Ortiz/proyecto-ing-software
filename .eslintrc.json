@@ -16,7 +16,7 @@
     "linebreak-style": "off",
     "no-unused-vars": "warn",
     "import/no-extraneous-dependencies": "warn",
-    "implicit-arrow-linebreak": "warn",
+    "implicit-arrow-linebreak": "off",
     "prefer-const": "warn",
     "semi": "off",
     "max-len": "off",
@@ -35,6 +35,7 @@
     "import/order": "warn",
     "no-restricted-syntax": "off",
     "arrow-body-style": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "function-paren-newline": "off"
   }
 }

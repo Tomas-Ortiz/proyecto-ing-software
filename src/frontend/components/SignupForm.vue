@@ -82,27 +82,12 @@
       errorMsg="La contraseña debe tener entre 8 y 16 caracteres, por lo menos un caracter especial, por lo menos una mayúscula y una minúscula y por lo menos un número"
     />
     <contact-form v-model="contact"></contact-form>
-    <div
-      :class="['error-message-container', error.visibility, error.title]"
-      role="alert"
-    >
-      <strong class="font-bold">{{ error.title }}!</strong><br />
-      <span class="error-message">{{ error.message }}</span>
-      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-        <svg
-          class="fill-current h-6 w-6 text-red-500"
-          role="button"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          @click="error.visibility = 'hidden'"
-        >
-          <title>Close</title>
-          <path
-            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
-          />
-        </svg>
-      </span>
-    </div>
+    <base-error-message
+      :errorMsg="error.message"
+      :errorTitle="error.title"
+      :class="error.visibility"
+      @click="error.visibility = 'hidden'"
+    ></base-error-message>
     <base-button
       name="submit-button"
       id="submit-button"
@@ -123,8 +108,7 @@ import BaseTextArea from './layout/BaseTextArea.vue';
 import BaseButton from './layout/BaseButton.vue';
 import BaseRadio from './layout/BaseRadio.vue';
 import BaseSelectOption from './layout/BaseSelectOption.vue';
-
-// import BaseErrorMessage from './layout/BaseErrorMessage.vue'
+import BaseErrorMessage from './layout/BaseErrorMessage.vue'
 
 export default {
   components: {
@@ -134,7 +118,7 @@ export default {
     'base-button': BaseButton,
     'base-radio': BaseRadio,
     'base-select-option': BaseSelectOption,
-    // 'base-error-message': BaseErrorMessage,
+    'base-error-message': BaseErrorMessage,
   },
   data() {
     return {

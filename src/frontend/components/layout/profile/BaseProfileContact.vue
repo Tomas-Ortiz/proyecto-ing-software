@@ -58,7 +58,7 @@
 
 <script>
 import BaseButton from '../BaseButton.vue';
-import BaseContactIcon from '../BaseContactIcon.vue';
+import BaseContactIcon from '../BaseSVGIcon.vue';
 import BaseInput from '../BaseInput.vue';
 
 export default {
@@ -90,14 +90,14 @@ export default {
 
 <style lang="postcss" scoped>
 .contact-container {
-  @apply w-full mt-7 mx-auto;
+  @apply w-full mt-7 mx-auto lg:mr-10;
 }
 .container-title {
   @apply text-xl font-bold text-pink-900;
   @apply border-b-2 border-pink-900 w-max mx-auto;
 }
 .contact {
-  @apply mt-5 mx-auto;
+  @apply mt-5 mx-auto w-60;
 }
 .contact-icon {
   @apply w-10 mr-2 inline-block align-top mt-2;
@@ -106,6 +106,6 @@ export default {
   @apply w-3/4 inline-block;
 }
 .update-button {
-  @apply w-full text-center mt-4;
+  @apply w-60 mx-auto text-center mt-4;
 }
 </style>

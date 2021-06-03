@@ -46,7 +46,7 @@ export default {
 
 <style lang="postcss" scoped>
 div {
-  @apply inline-block mx-5;
+  @apply inline-block;
 }
 input {
   @apply bg-red-400 w-10 cursor-pointer;

@@ -49,6 +49,9 @@ export default {
 
 <style lang="postcss" scoped>
 img {
+  transform: scale(1.1);
+}
+img {
   @apply w-full h-full object-cover object-center filter blur-sm;
 }
 .image-container > h2,
