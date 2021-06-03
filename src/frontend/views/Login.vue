@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login-background">
     <the-login></the-login>
   </div>
 </template>
@@ -17,7 +17,8 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
-.login {
-  @apply flex h-screen justify-center items-center;
+.login-background {
+  @apply bg-gradient-to-tr from-pink-900 via-red-900 to-red-900;
+  @apply absolute w-full min-h-screen overflow-hidden;
 }
 </style>
