@@ -1,7 +1,7 @@
 <template>
   <div class="filter-container">
     <div class="container-title">
-      <h1>FILTROS</h1>
+      <h1>Filtros</h1>
       <div class="search-bar-container">
         <input
           type="text"
@@ -11,7 +11,7 @@
           name="search-bar"
           id="search-bar"
           placeholder="Buscar..."
-        >
+        />
         <base-svg-icon name="search" class="search-bar-icon"></base-svg-icon>
       </div>
       <div class="filters">
@@ -22,7 +22,9 @@
             v-for="item in species"
             :key="item"
             @click="selectFilter(item)"
-          >{{ item }}</p>
+          >
+            {{ item }}
+          </p>
         </div>
         <div class="filter">
           <h2 class="filter-title">Color</h2>
@@ -31,7 +33,9 @@
             v-for="item in colors"
             :key="item"
             @click="selectFilter(item)"
-          >{{ item }}</p>
+          >
+            {{ item }}
+          </p>
         </div>
         <div class="filter">
           <h2 class="filter-title">Género</h2>
@@ -40,7 +44,9 @@
             v-for="item in genders"
             :key="item"
             @click="selectFilter(item)"
-          >{{ item }}</p>
+          >
+            {{ item }}
+          </p>
         </div>
       </div>
     </div>
@@ -48,7 +54,7 @@
 </template>
 
 <script>
-import BaseSVGIcon from '../BaseSVGIcon.vue'
+import BaseSVGIcon from '../BaseSVGIcon.vue';
 
 export default {
   components: {
@@ -58,11 +64,19 @@ export default {
   data() {
     return {
       species: ['perro', 'gato', 'ave', 'reptil', 'conejo'],
-      colors: ['rojo', 'verde', 'amarillo', 'negro', 'blanco', 'marrón', 'azul'],
-      genders: ['macho', 'hembra', 'desconocido'],
+      colors: [
+        'rojo',
+        'verde',
+        'amarillo',
+        'negro',
+        'blanco',
+        'marrón',
+        'azul',
+      ],
+      genders: ['macho', 'hembra'],
       filters: [],
       searchbarQuery: '',
-    }
+    };
   },
   methods: {
     emitInputValue() {
@@ -84,9 +98,9 @@ export default {
           this.filters.splice(index, 1);
         }
       }
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="postcss" scoped>

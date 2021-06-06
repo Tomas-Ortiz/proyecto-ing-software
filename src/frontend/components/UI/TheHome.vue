@@ -2,13 +2,15 @@
   <div class="home">
     <the-banner></the-banner>
     <div class="main-home">
-
       <the-header class="header">
-        <router-link class="slot router text-2xl text-gray-200 font-semibold" to="/create-post">Crear Publicación</router-link>
+        <router-link
+          class="slot router text-2xl text-gray-200 font-semibold"
+          to="/create-post"
+          >Crea tu publicación</router-link
+        >
       </the-header>
 
       <div class="results">
-
         <base-home-filter
           class="filters-container"
           v-model="response"
@@ -17,7 +19,9 @@
         ></base-home-filter>
 
         <div class="cards-container" v-show="filteredPosts.length !== 0">
-          <h1 class="results-title">Se encontraron {{ filteredPosts.length }} mascotas...</h1>
+          <h1 class="results-title">
+            Se encontraron {{ filteredPosts.length }} mascotas...
+          </h1>
           <base-pet-card
             class="card"
             v-for="post in filteredPosts"
@@ -26,23 +30,23 @@
             :imageSrc="post.pet.images[0].path"
             :imageAlt="getImageAlt(post)"
             :cardTitle="post.title"
+            :cardDate="post.publishingDate"
           ></base-pet-card>
         </div>
         <div class="cards-container" v-show="filteredPosts.length === 0">
           <div class="no-results-container">
             <h1 class="no-results-title">
-              No se encontraron resultados que coincidan con: {{ searchbarQuery }}
+              No se encontraron resultados que coincidan con:
+              {{ searchbarQuery }}
             </h1>
             <img
               src="../../assets/illustrations/good-pet.svg"
               class="no-results-illustration"
               alt="Ilustración de una mujer acariciando a un perrito."
-            >
+            />
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 </template>
@@ -70,7 +74,7 @@ export default {
       filteredPosts: [],
       searchbarQuery: '',
       response: null,
-    }
+    };
   },
   created() {
     this.getPosts();
@@ -92,7 +96,7 @@ export default {
       return `Imagen de un ${post.pet.species}, 
         llamado ${post.pet.name}, 
         con ${post.pet.age} ${post.pet.ageTime} de edad. 
-        El ${post.pet.species} es de color ${post.pet.colour}.`
+        El ${post.pet.species} es de color ${post.pet.colour}.`;
     },
     filterAndSearchPosts() {
       this.searchbarQuery = this.response.query;
@@ -101,15 +105,19 @@ export default {
 
       if (this.searchbarQuery !== '' && this.filters.length !== 0) {
         this.filteredPosts = this.posts.filter((post) => {
-          return (this.removeDiacritics(post.title).includes(query) ||
-                 this.removeDiacritics(post.pet.name).includes(query) ||
-                 this.removeDiacritics(post.pet.species).includes(query) ||
-                 this.removeDiacritics(post.pet.location.country).includes(query) ||
-                 this.removeDiacritics(post.pet.location.city).includes(query) ||
-                 this.removeDiacritics(post.pet.colour).includes(query)) &&
-                 (this.filters.includes(this.removeDiacritics(post.pet.species)) ||
-                 this.filters.includes(this.removeDiacritics(post.pet.gender)) ||
-                 this.filters.includes(this.removeDiacritics(post.pet.colour)))
+          return (
+            (this.removeDiacritics(post.title).includes(query) ||
+              this.removeDiacritics(post.pet.name).includes(query) ||
+              this.removeDiacritics(post.pet.species).includes(query) ||
+              this.removeDiacritics(post.pet.location.country).includes(
+                query
+              ) ||
+              this.removeDiacritics(post.pet.location.city).includes(query) ||
+              this.removeDiacritics(post.pet.colour).includes(query)) &&
+            (this.filters.includes(this.removeDiacritics(post.pet.species)) ||
+              this.filters.includes(this.removeDiacritics(post.pet.gender)) ||
+              this.filters.includes(this.removeDiacritics(post.pet.colour)))
+          );
         });
       } else if (this.searchbarQuery !== '' && this.filters.length === 0) {
         this.searchPosts();
@@ -123,12 +131,14 @@ export default {
 
       if (this.searchbarQuery !== '') {
         this.filteredPosts = this.posts.filter((post) => {
-          return this.removeDiacritics(post.title).includes(query) ||
-                 this.removeDiacritics(post.pet.name).includes(query) ||
-                 this.removeDiacritics(post.pet.species).includes(query) ||
-                 this.removeDiacritics(post.pet.location.country).includes(query) ||
-                 this.removeDiacritics(post.pet.location.city).includes(query) ||
-                 this.removeDiacritics(post.pet.colour).includes(query)
+          return (
+            this.removeDiacritics(post.title).includes(query) ||
+            this.removeDiacritics(post.pet.name).includes(query) ||
+            this.removeDiacritics(post.pet.species).includes(query) ||
+            this.removeDiacritics(post.pet.location.country).includes(query) ||
+            this.removeDiacritics(post.pet.location.city).includes(query) ||
+            this.removeDiacritics(post.pet.colour).includes(query)
+          );
         });
       } else {
         this.filteredPosts = this.posts;
@@ -136,12 +146,13 @@ export default {
     },
     filterPosts() {
       this.filters = this.response.filters;
-
       if (this.filters.length !== 0) {
         this.filteredPosts = this.posts.filter((post) => {
-          return this.filters.includes(this.removeDiacritics(post.pet.species)) ||
-                 this.filters.includes(this.removeDiacritics(post.pet.gender)) ||
-                 this.filters.includes(this.removeDiacritics(post.pet.colour))
+          return (
+            this.filters.includes(this.removeDiacritics(post.pet.species)) ||
+            this.filters.includes(this.removeDiacritics(post.pet.gender)) ||
+            this.filters.includes(this.removeDiacritics(post.pet.colour))
+          );
         });
       } else {
         this.filteredPosts = this.posts;
@@ -149,10 +160,13 @@ export default {
     },
     removeDiacritics(str) {
       // Eliminar todos los signos diacríticos de un string
-      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-    }
+      return str
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    },
   },
-}
+};
 </script>
 
 <style lang="postcss" scoped>

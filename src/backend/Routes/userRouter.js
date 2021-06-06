@@ -19,5 +19,6 @@ router.put(
   controller.updateProfile
 );
 router.get('/getUser', validateToken, controller.getUser);
+router.get('/getUser/:id', controller.getUserById);
 
 module.exports = router;

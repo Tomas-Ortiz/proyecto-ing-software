@@ -1,3 +1,4 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
@@ -6,7 +7,15 @@ const { Schema } = mongoose;
 const postSchema = new Schema({
   title: { type: String, required: true },
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  publishingDate: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now, required: true },
+  updatedAt: { type: Date, default: Date.now, required: true },
+  publishingDate: {
+    type: String,
+    default: moment(new Date())
+      .locale('es')
+      .format('LL')
+      .toString(),
+  },
   pet: {
     _id: false,
     name: { type: String, required: false },

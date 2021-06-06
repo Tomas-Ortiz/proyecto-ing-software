@@ -9,10 +9,9 @@ import TheLogin from '../components/UI/TheLogin.vue';
 
 export default {
   components: {
-    'the-login': TheLogin
+    'the-login': TheLogin,
   },
   name: 'Login',
-
 };
 </script>
 

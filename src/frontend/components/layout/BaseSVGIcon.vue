@@ -10,19 +10,21 @@ export default {
     name: {
       type: String,
       required: true,
-      validator: (value) => [
-        'instagram',
-        'facebook',
-        'whatsapp',
-        'male',
-        'female',
-        'genderless',
-        'close',
-        'edit',
-        'correct',
-        'camera',
-        'search'
-      ].indexOf(value) !== -1,
+      validator: (value) =>
+        [
+          'instagram',
+          'facebook',
+          'whatsapp',
+          'male',
+          'female',
+          'genderless',
+          'close',
+          'edit',
+          'correct',
+          'camera',
+          'search',
+          'mail',
+        ].indexOf(value) !== -1,
     },
   },
   data() {
@@ -81,6 +83,11 @@ export default {
         path:
           'M11 2c4.968 0 9 4.032 9 9s-4.032 9-9 9-9-4.032-9-9 4.032-9 9-9zm0 16c3.867 0 7-3.133 7-7 0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7zm8.485.071l2.829 2.828-1.415 1.415-2.828-2.829 1.414-1.414z',
         color: 'rgba(52,72,94,1)',
+      },
+      mail: {
+        path:
+          'M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm9.06 8.683L5.648 6.238 4.353 7.762l7.72 6.555 7.581-6.56-1.308-1.513-6.285 5.439z',
+        color: 'rgba(126, 163, 242,1)',
       },
     };
   },

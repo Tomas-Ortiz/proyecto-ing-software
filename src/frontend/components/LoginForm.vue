@@ -7,7 +7,7 @@
       id="email"
       placeholder="Correo electrónico"
       :regex="regex.email"
-      errorMsg="La dirección de correo introducida no es válida"
+      errorMsg="El formato del correo introducido no es válido"
     />
     <base-input
       v-model="password"
@@ -17,12 +17,12 @@
       placeholder="Contraseña"
       :regex="regex.password"
     />
-        <div
+    <div
       :class="['error-message-container', error.visibility, error.title]"
       role="alert"
     >
       <strong class="font-bold">{{ error.title }}!</strong><br />
-      <span class="error-message">{{ error.message.msg }}</span>
+      <span class="error-message">{{ error.message }}</span>
       <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
         <svg
           class="fill-current h-6 w-6 text-red-500"
@@ -43,7 +43,7 @@
       id="submit-button"
       class="submit"
       type="submit"
-      buttonText="Login"
+      buttonText="Ingresar"
       :isDisabled="false"
     />
   </form>
@@ -53,7 +53,6 @@
 import axios from 'axios';
 
 import BaseInput from './layout/BaseInput.vue';
-
 import BaseButton from './layout/BaseButton.vue';
 
 export default {
@@ -68,20 +67,20 @@ export default {
         title: 'Error',
         visibility: 'hidden',
       },
+      account: {},
       email: '',
       password: '',
-      userData: {},
       regex: {
         password: /./,
         email: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
       },
-    }
+    };
   },
   methods: {
     allInputsAreValid() {
       if (this.validFields()) {
         this.createUserData();
-        this.login();
+        this.sendUserData();
       } else {
         let message =
           'Algunos de los campos ingresados no son correctos, asegurate de que ninguno se encuentre vacío';
@@ -89,39 +88,33 @@ export default {
       }
     },
     createUserData() {
-      this.userData = {
-        account: {
-          email: this.email.value,
-          password: this.password.value,
-        }
+      this.account = {
+        email: this.email.value,
+        password: this.password.value,
       };
     },
-    login() {
-      const serverURL = 'http://localhost:3000/login';
+    sendUserData() {
+      const loginURL = 'http://localhost:3000/login';
       axios
-        .post(serverURL, this.userData)
+        .post(loginURL, this.account)
         .then((response) => {
+          localStorage.setItem('token', response.data.token);
           this.showMessage('Éxito', response.data, 'block');
-          document.getElementById('submit-button').disabled = true;
-          localStorage.setItem('token', response.data.token)
-          setTimeout(this.$router.push('/'), 2500);
+          this.$router.push('/');
         })
         .catch((error) => {
-          this.showMessage('Error', error.response.data, 'block');
+          this.showMessage('Error', error.response.data.msg, 'block');
         });
     },
     validFields() {
-      return (
-        this.email.isValid &&
-        this.password.isValid
-      );
+      return this.email.isValid && this.password.isValid;
     },
     showMessage(title, msg, visibility) {
       this.error.title = title;
       this.error.message = msg;
       this.error.visibility = visibility;
     },
-  }
+  },
 };
 </script>
 

@@ -1,58 +1,48 @@
 <template>
   <div class="contact-container">
-
     <div class="container-title">
       <h1>Opciones de Contacto</h1>
     </div>
 
     <div class="contact">
-      <contact-icon
-        class="contact-icon"
-        name="instagram">
-      </contact-icon>
+      <contact-icon class="contact-icon" name="instagram"> </contact-icon>
       <base-input
         id=""
         class="contact-input"
         name=""
         placeholder="instagram.com/"
-        :regex="contact.instagram.regex">
+        :regex="contact.instagram.regex"
+      >
       </base-input>
     </div>
 
     <div class="contact">
-      <contact-icon
-        class="contact-icon"
-        name="facebook">
-      </contact-icon>
+      <contact-icon class="contact-icon" name="facebook"> </contact-icon>
       <base-input
         id=""
         class="contact-input"
         name=""
         placeholder="facebook.com/"
-        :regex="contact.facebook.regex">
+        :regex="contact.facebook.regex"
+      >
       </base-input>
     </div>
 
     <div class="contact">
-      <contact-icon
-        class="contact-icon"
-        name="whatsapp">
-      </contact-icon>
+      <contact-icon class="contact-icon" name="whatsapp"> </contact-icon>
       <base-input
         id=""
         class="contact-input"
         name=""
         placeholder="3219038192"
-        :regex="contact.whatsapp.regex">
+        :regex="contact.whatsapp.regex"
+      >
       </base-input>
     </div>
 
     <div class="update-button">
-      <base-button
-        buttonText="UPDATE">
-      </base-button>
+      <base-button buttonText="Actualizar"> </base-button>
     </div>
-
   </div>
 </template>
 
@@ -82,10 +72,10 @@ export default {
           value: null,
           regex: /([+(\d]{1})(([\d+() -.]){5,16})([+(\d]{1})/,
         },
-      }
-    }
+      },
+    };
   },
-}
+};
 </script>
 
 <style lang="postcss" scoped>
