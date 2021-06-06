@@ -1,6 +1,6 @@
 <template>
- <base-login-card>
-   <template #image>
+  <base-login-card>
+    <template #image>
       <img
         src="../../assets/images/login-card-image.jpg"
         alt="a dog  wearing a crown"
@@ -18,8 +18,7 @@
     <template #register>
       <a class="register" href="/signup">{{ loginFormData.redirect }}</a>
     </template>
-
- </base-login-card>
+  </base-login-card>
 </template>
 
 <script>
@@ -34,17 +33,17 @@ export default {
   data() {
     return {
       loginFormData: {
-        title: 'Bienvenido/a de vuelta',
-        withoutAccount: '¿Aun no tienes una cuenta?',
+        title: '¡Bienvenido!',
+        withoutAccount: '¿Aún no tienes una cuenta?',
         redirect: 'Registrarse',
         image: {
           url: '../../assets/images/login-card-image.jpg',
           alt: 'Un perro usando una corona',
         },
-      }
+      },
     };
   },
-}
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -60,5 +59,4 @@ img {
 .register {
   @apply font-semibold text-pink-600 underline;
 }
-
 </style>

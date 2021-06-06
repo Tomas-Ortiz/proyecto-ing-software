@@ -108,7 +108,7 @@ import BaseTextArea from './layout/BaseTextArea.vue';
 import BaseButton from './layout/BaseButton.vue';
 import BaseRadio from './layout/BaseRadio.vue';
 import BaseSelectOption from './layout/BaseSelectOption.vue';
-import BaseErrorMessage from './layout/BaseErrorMessage.vue'
+import BaseErrorMessage from './layout/BaseErrorMessage.vue';
 
 export default {
   components: {
@@ -218,7 +218,7 @@ export default {
           this.showMessage('Éxito', response.data.msg, 'block');
           document.getElementById('idSignupForm').reset();
           document.getElementById('submit-button').disabled = true;
-          setTimeout(window.location.reload.bind(window.location), 2500);
+          setTimeout(() => this.$router.push({ name: 'Login' }), 3000);
         })
         .catch((error) => {
           this.showMessage('Error', error.response.data, 'block');
@@ -252,18 +252,5 @@ export default {
 <style lang="postcss" scoped>
 .form {
   @apply grid grid-rows-1;
-}
-.error-message-container {
-  @apply bg-red-100 border border-red-400 text-red-700;
-  @apply w-4/5 mx-auto px-4 py-3 rounded relative;
-}
-.error-message {
-  @apply block sm:inline;
-}
-.Error {
-  @apply bg-red-100 border-red-400 text-red-700;
-}
-.Éxito {
-  @apply bg-green-100 border-green-400 text-green-700;
 }
 </style>
