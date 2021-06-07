@@ -120,6 +120,10 @@ export default {
     'base-select-option': BaseSelectOption,
     'base-error-message': BaseErrorMessage,
   },
+  created() {
+    this.userAlreadyLogged();
+    this.getCountries();
+  },
   data() {
     return {
       error: {
@@ -158,10 +162,6 @@ export default {
       },
     };
   },
-  created() {
-    this.getCountries();
-  },
-
   methods: {
     getCountries() {
       const countriesURL = 'https://restcountries.eu/rest/v2/all';
@@ -244,6 +244,11 @@ export default {
       this.error.title = title;
       this.error.message = msg;
       this.error.visibility = visibility;
+    },
+    userAlreadyLogged() {
+      if (localStorage.getItem('token')) {
+        this.$router.push('/');
+      }
     },
   },
 };

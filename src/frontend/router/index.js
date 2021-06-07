@@ -54,6 +54,12 @@ const routes = [
     component: Login,
     meta: { title: `${nameApp} - Iniciá sesión` },
   },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: () => import('../views/Logout.vue'),
+    meta: { title: nameApp },
+  },
 ];
 
 const router = createRouter({

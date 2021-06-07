@@ -8,6 +8,11 @@
           to="/create-post"
           >Crea tu publicación</router-link
         >
+        <router-link
+          class="slot router text-2xl text-gray-200 font-semibold"
+          to="/logout"
+          >Cerrar sesión</router-link
+        >
       </the-header>
 
       <div class="results">
@@ -93,9 +98,9 @@ export default {
         });
     },
     getImageAlt(post) {
-      return `Imagen de un ${post.pet.species}, 
-        llamado ${post.pet.name}, 
-        con ${post.pet.age} ${post.pet.ageTime} de edad. 
+      return `Imagen de un ${post.pet.species},
+        llamado ${post.pet.name},
+        con ${post.pet.age} ${post.pet.ageTime} de edad.
         El ${post.pet.species} es de color ${post.pet.colour}.`;
     },
     filterAndSearchPosts() {
@@ -133,11 +138,11 @@ export default {
         this.filteredPosts = this.posts.filter((post) => {
           return (
             this.removeDiacritics(post.title).includes(query) ||
-            this.removeDiacritics(post.pet.name).includes(query) ||
+            //this.removeDiacritics(post.pet.name).includes(query) ||
             this.removeDiacritics(post.pet.species).includes(query) ||
             this.removeDiacritics(post.pet.location.country).includes(query) ||
-            this.removeDiacritics(post.pet.location.city).includes(query) ||
-            this.removeDiacritics(post.pet.colour).includes(query)
+            this.removeDiacritics(post.pet.location.city).includes(query)
+            //this.removeDiacritics(post.pet.colour).includes(query)
           );
         });
       } else {

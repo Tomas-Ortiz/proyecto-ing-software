@@ -214,8 +214,8 @@
     <base-error-message
       :errorMsg="error.message"
       :errorTitle="error.title"
-      :class="[errorMessageVisibility, size]"
-      @click="errorMessageVisibility = 'hidden'"
+      :class="[error.visibility, size]"
+      @click="error.visibility = 'hidden'"
     ></base-error-message>
     <base-button
       name="submit-button"
@@ -262,6 +262,7 @@ export default {
       title: '',
       postId: '',
       post: {},
+      size: '',
       pet: {
         name: '',
         gender: 'Sin Género',
@@ -296,7 +297,6 @@ export default {
         title: 'Error',
         visibility: 'hidden',
       },
-      errorMessageVisibility: 'hidden',
     };
   },
   methods: {

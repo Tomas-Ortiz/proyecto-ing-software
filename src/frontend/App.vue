@@ -22,7 +22,6 @@
         />
       </svg>
     </div>
-
     <div class="h-full">
       <router-view></router-view>
     </div>
@@ -30,6 +29,8 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
+
 import TheFooter from './components/UI/TheFooter.vue';
 
 export default {
@@ -38,8 +39,10 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.clear();
-      this.$router.push('/login');
+      if (localStorage.getItem('token')) {
+        localStorage.removeItem('token');
+        this.$router.push('/login');
+      }
     },
   },
 };

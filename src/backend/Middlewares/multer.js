@@ -4,7 +4,7 @@ const crypto = require('crypto');
 
 // Con multer se especifica el destino y nombre del archivo, y se lo valida
 const multerStorage = multer.diskStorage({
-  destination: path.resolve(__dirname, '../../frontend/public/images/posts'),
+  destination: path.resolve(__dirname, '../../backend/Images/Posts'),
   filename: (req, file, cb) => {
     const filename = `post-${crypto
       .randomBytes(10)

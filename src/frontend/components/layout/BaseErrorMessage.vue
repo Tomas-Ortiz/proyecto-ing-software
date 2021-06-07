@@ -25,6 +25,7 @@ export default {
     errorMsg: {
       type: String,
       required: true,
+      default: 'Error',
     },
     errorTitle: {
       type: String,

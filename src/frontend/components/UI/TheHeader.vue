@@ -8,7 +8,9 @@
         <router-link class="slot router" to="/create-post"
           >Crea tu publicación</router-link
         >
-        <router-link class="slot router" to="/">Cerrar sesión</router-link>
+        <router-link class="slot router" to="/logout"
+          >Cerrar sesión</router-link
+        >
       </slot>
     </div>
   </div>

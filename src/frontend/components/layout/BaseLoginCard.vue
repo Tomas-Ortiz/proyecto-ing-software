@@ -23,14 +23,11 @@
   @apply md:grid md:grid-cols-2 max-w-sm md:max-w-3xl lg:max-w-4xl;
   @apply mt-10 max-h-full;
 }
-.card-container {
-  height: 500px;
-}
 .image-container {
   @apply overflow-hidden hidden md:block;
 }
 .image-container {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 .container {
   @apply md:col-start-2 items-center text-center h-3/5;
