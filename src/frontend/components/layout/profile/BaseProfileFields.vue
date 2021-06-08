@@ -12,43 +12,46 @@
         Nombre:
       </label>
       <base-input
-        v-model="user.fullName"
+        v-model="newFullName"
         class="field-input"
         id="name"
         name="name"
-        placeholder="Nombre Completo"
+        :placeholder="name"
         :regex="regex.fullName"
+        @keyup="emitInputValue"
       />
     </div>
 
-    <div class="field" v-if="user.type === 'Particular'">
+    <div class="field" v-if="type === 'Particular'">
       <label
         class="field-label"
         for="id">
         DNI:
       </label>
       <base-input
-        v-model="user.NID"
+        v-model="newNID"
         class="field-input"
         id="id"
         name="id"
-        placeholder="DNI"
+        :placeholder="NID"
         :regex="regex.id"
+        @keyup="emitInputValue"
       />
     </div>
 
-    <div class="field" v-else-if="user.type === 'ONG'">
+    <div class="field" v-else-if="type === 'ONG'">
       <label
         class="field-label"
         for="description">
         Descripción:
       </label>
       <base-input
-        v-model="user.description"
+        v-model="newDescription"
         class="field-input"
         id="description"
         name="description"
         placeholder="Una breve descripción de tu organización..."
+        @keyup="emitInputValue"
       />
     </div>
 
@@ -59,28 +62,31 @@
         País:
       </label>
       <select-option
+        v-model="newCountry"
         class="field-input"
         id="selectCountry"
         name="country"
         :options="countries"
-        defaultValue="País"
+        :defaultValue="location.country"
         errorMsg="Debes seleccionar una opción válida"
+        @change="emitInputValue"
       />
     </div>
 
     <div class="field">
       <label
         class="field-label"
-        for="province">
+        for="city">
         Provincia:
       </label>
       <base-input
-        v-model="user.location.province"
+        v-model="newCity"
         class="field-input"
-        id="province"
-        name="province"
-        placeholder="Provincia, ciudad o estado"
-        :regex="regex.province"
+        id="city"
+        name="city"
+        :placeholder="location.city"
+        :regex="regex.city"
+        @keyup="emitInputValue"
       />
     </div>
 
@@ -91,12 +97,13 @@
         Dirección:
       </label>
       <base-input
-        v-model="user.location.address"
+        v-model="newAddress"
         class="field-input"
         id="address"
         name="address"
-        placeholder="Dirección"
+        :placeholder="location.address"
         :regex="regex.address"
+        @keyup="emitInputValue"
       />
     </div>
 
@@ -107,12 +114,13 @@
         Email:
       </label>
       <base-input
-        v-model="user.email"
+        v-model="newEmail"
         class="field-input"
         id="email"
         name="email"
-        placeholder="Correo electrónico"
+        :placeholder="email"
         :regex="regex.email"
+        @keyup="emitInputValue"
       />
     </div>
 
@@ -123,12 +131,13 @@
         Username:
       </label>
       <base-input
-        v-model="user.username"
+        v-model="newUsername"
         class="field-input"
         id="username"
         name="username"
-        placeholder="Nombre de usuario"
+        :placeholder="username"
         :regex="regex.username"
+        @keyup="emitInputValue"
       />
     </div>
 
@@ -139,19 +148,22 @@
         Contraseña:
       </label>
       <base-input
-        v-model="user.password"
+        v-model="newPassword"
         class="field-input"
         id="password"
         name="password"
-        placeholder="Contraseña"
+        placeholder="Cambiar Contraseña"
         :regex="regex.password"
+        @keyup="emitInputValue"
       />
     </div>
 
     <div class="update-button">
       <base-button
-        buttonText="UPDATE">
-      </base-button>
+        buttonText="Actualizar datos"
+        :isDisabled="true"
+        disabledText="Actualizar datos"
+      ></base-button>
     </div>
 
   </div>
@@ -165,27 +177,63 @@ import BaseSelectOption from '../BaseSelectOption.vue';
 import BaseButton from '../BaseButton.vue';
 
 export default {
+  props: {
+    userData: {
+      type: Object,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: Object,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    NID: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    type: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  },
+  emits: ['update:modelValue'],
   components: {
     'base-input': BaseInput,
     'select-option': BaseSelectOption,
     'base-button': BaseButton,
   },
+  mounted() {
+    this.user = this.userData;
+  },
   data() {
     return {
-      user: {
-        type: null,
-        username: null,
-        NID: null,
-        password: null,
-        email: null,
-        description: null,
-        fullName: null,
-        location: {
-          country: null,
-          province: null,
-          address: null,
-        },
-      },
+      newNID: null,
+      newDescription: null,
+      newFullName: null,
+      newUsername: null,
+      newPassword: null,
+      newEmail: null,
+      newCountry: null,
+      newCity: null,
+      newAddress: null,
+      user: {},
       countries: null,
       regex: {
         username: /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{4,15}$/,
@@ -194,15 +242,13 @@ export default {
         email: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
         address: /^[A-Za-zñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙ0-9'\.\-\s\,]{1,30}$/,
         id: /^([0-9]{8,20})$/,
-        province: /^([a-zA-ZñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙ][\s]{0,1}){1,30}$/,
+        city: /^([a-zA-ZñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙ][\s]{0,1}){1,30}$/,
       },
     }
   },
-
   created() {
     this.getCountries();
   },
-
   methods: {
     getCountries() {
       const countriesURL = 'https://restcountries.eu/rest/v2/all';
@@ -215,13 +261,43 @@ export default {
           this.showMessage('Error', error.response.data, 'block');
         });
     },
+    emitInputValue() {
+      this.inputIsUpdated(this.newNID, 'NID');
+      this.inputIsUpdated(this.newDescription, 'description');
+      this.inputIsUpdated(this.newFullName, 'fullname');
+      this.inputIsUpdated(this.newUsername, 'username', true, 'account');
+      this.inputIsUpdated(this.newPassword, 'password', true, 'account');
+      this.inputIsUpdated(this.newEmail, 'email', true, 'account');
+      this.inputIsUpdated(this.newCountry, 'country', true, 'location');
+      this.inputIsUpdated(this.newCity, 'city', true, 'location');
+      this.inputIsUpdated(this.newAddress, 'address', true, 'location');
+      this.$emit('update:modelValue', this.user);
+    },
+    inputIsUpdated(input, propertyName, propertyIsObject = false, objectName = '') {
+      if (input) {
+        if (input.value !== '' && input.isValid) {
+          if (!propertyIsObject) {
+            this.user[propertyName] = input.value;
+          } else {
+            this.user[objectName][propertyName] = input.value;
+          }
+        } else {
+          // eslint-disable-next-line no-lonely-if
+          if (!propertyIsObject) {
+            this.user[propertyName] = this.userData[propertyName];
+          } else {
+            this.user[objectName][propertyName] = this.userData[objectName][propertyName];
+          }
+        }
+      }
+    },
   },
 }
 </script>
 
 <style lang="postcss" scoped>
 .fields-container {
-  @apply mt-7 border-none;
+  @apply mt-7 border-none lg:px-40;
 }
 .container-title {
   @apply text-xl font-bold text-pink-900;

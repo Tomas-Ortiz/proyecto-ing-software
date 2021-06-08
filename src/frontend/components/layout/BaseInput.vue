@@ -108,7 +108,7 @@ export default {
 }
 .error-message-container {
   @apply bg-red-100 border border-red-400 text-red-700;
-  @apply w-4/5 mx-auto px-4 py-3 rounded relative;
+  @apply w-4/5 px-4 py-3 rounded relative;
 }
 .error-message {
   @apply inline sm:inline;

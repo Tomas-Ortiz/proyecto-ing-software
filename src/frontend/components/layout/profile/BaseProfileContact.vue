@@ -5,67 +5,44 @@
       <h1>Opciones de Contacto</h1>
     </div>
 
-    <div class="contact">
+    <div class="contact"
+      v-for="contactMethod in contactInfo"
+      :key="contactMethod.contactType">
       <contact-icon
         class="contact-icon"
-        name="instagram">
+        :name="contactMethod.contactType">
       </contact-icon>
       <base-input
-        id=""
+        id="contactMethod.contactType"
         class="contact-input"
-        name=""
-        placeholder="instagram.com/"
-        :regex="contact.instagram.regex">
+        name="contactMethod.contactType"
+        :placeholder="contactMethod.value"
+        :regex="getRegexFor(contactMethod.contactType)"
+        errorMsg="Llenar el campo con un valor correcto"
+        @keyup="emitInputValue"
+        v-model="contact[contactMethod.contactType].value"
+        >
       </base-input>
-    </div>
-
-    <div class="contact">
-      <contact-icon
-        class="contact-icon"
-        name="facebook">
-      </contact-icon>
-      <base-input
-        id=""
-        class="contact-input"
-        name=""
-        placeholder="facebook.com/"
-        :regex="contact.facebook.regex">
-      </base-input>
-    </div>
-
-    <div class="contact">
-      <contact-icon
-        class="contact-icon"
-        name="whatsapp">
-      </contact-icon>
-      <base-input
-        id=""
-        class="contact-input"
-        name=""
-        placeholder="3219038192"
-        :regex="contact.whatsapp.regex">
-      </base-input>
-    </div>
-
-    <div class="update-button">
-      <base-button
-        buttonText="UPDATE">
-      </base-button>
     </div>
 
   </div>
 </template>
 
 <script>
-import BaseButton from '../BaseButton.vue';
 import BaseContactIcon from '../BaseSVGIcon.vue';
 import BaseInput from '../BaseInput.vue';
 
 export default {
+  props: {
+    contactInfo: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ['update:modelValue'],
   components: {
     'contact-icon': BaseContactIcon,
     'base-input': BaseInput,
-    'base-button': BaseButton,
   },
   data() {
     return {
@@ -82,8 +59,46 @@ export default {
           value: null,
           regex: /([+(\d]{1})(([\d+() -.]){5,16})([+(\d]{1})/,
         },
-      }
+      },
+      updatedContacts: [],
+      oldContacts: [],
     }
+  },
+  mounted() {
+    this.updatedContacts = this.contactInfo;
+    this.oldContacts = this.contactInfo;
+    console.log('OLD CONTACTS:');
+    console.log(this.oldContacts);
+  },
+  methods: {
+    getRegexFor(name) {
+      return this.contact[name].regex;
+    },
+    emitInputValue() {
+      // Si existe un nuevo valor ingresado, agregarlo a updatedContacts
+      // Si el valor ingresado no es válido, agregar el valor viejo a updatedContacts
+      this.updatedContacts = this.contactInfo;
+      console.log('UPDATED CONTACTS:');
+      console.log(this.updatedContacts);
+      this.updatedContacts.forEach((item) => {
+        if (this.contact[item.contactType].value && this.contact[item.contactType].value.isValid) {
+          const index = this.updatedContacts.indexOf(item);
+          const newContact =
+          {
+            contactType: item.contactType,
+            value: this.contact[item.contactType].value.value,
+          }
+          this.updatedContacts.splice(index, 1, newContact);
+        } else {
+          const index = this.updatedContacts.indexOf(item);
+          const oldContact = this.oldContacts.filter((value) => {
+            return item.contactType === value.contactType;
+          });
+          this.updatedContacts.splice(index, 1, oldContact);
+        }
+      });
+      this.$emit('update:modelValue', this.updatedContacts);
+    },
   },
 }
 </script>
@@ -97,15 +112,12 @@ export default {
   @apply border-b-2 border-pink-900 w-max mx-auto;
 }
 .contact {
-  @apply mt-5 mx-auto w-60;
+  @apply mt-5 mx-auto w-56 lg:w-80 xl:w-96;
 }
 .contact-icon {
   @apply w-10 mr-2 inline-block align-top mt-2;
 }
 .contact-input {
-  @apply w-3/4 inline-block;
-}
-.update-button {
-  @apply w-60 mx-auto text-center mt-4;
+  @apply w-3/4 lg:w-8/12 inline-block;
 }
 </style>

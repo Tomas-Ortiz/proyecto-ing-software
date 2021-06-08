@@ -83,7 +83,7 @@
     />
     <contact-form v-model="contact"></contact-form>
     <base-error-message
-      :errorMsg="error.message"
+      :errorMsg="error.message.msg"
       :errorTitle="error.title"
       :class="error.visibility"
       @click="error.visibility = 'hidden'"

@@ -7,7 +7,7 @@
       <base-contact-icon name="instagram"></base-contact-icon>
       <base-input
         v-model="contact.instagram"
-        type="url"
+        type="text"
         name="instagram"
         id="instagram"
         :placeholder="`https://instagram.com/username`"
@@ -20,7 +20,7 @@
       <base-contact-icon name="facebook"></base-contact-icon>
       <base-input
         v-model="contact.facebook"
-        type="url"
+        type="text"
         name="facebook"
         id="facebook"
         :placeholder="`https://facebook.com/username`"

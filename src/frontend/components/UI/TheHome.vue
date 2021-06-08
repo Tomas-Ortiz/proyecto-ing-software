@@ -102,7 +102,6 @@ export default {
       if (this.searchbarQuery !== '' && this.filters.length !== 0) {
         this.filteredPosts = this.posts.filter((post) => {
           return (this.removeDiacritics(post.title).includes(query) ||
-                 this.removeDiacritics(post.pet.name).includes(query) ||
                  this.removeDiacritics(post.pet.species).includes(query) ||
                  this.removeDiacritics(post.pet.location.country).includes(query) ||
                  this.removeDiacritics(post.pet.location.city).includes(query) ||
@@ -124,7 +123,6 @@ export default {
       if (this.searchbarQuery !== '') {
         this.filteredPosts = this.posts.filter((post) => {
           return this.removeDiacritics(post.title).includes(query) ||
-                 this.removeDiacritics(post.pet.name).includes(query) ||
                  this.removeDiacritics(post.pet.species).includes(query) ||
                  this.removeDiacritics(post.pet.location.country).includes(query) ||
                  this.removeDiacritics(post.pet.location.city).includes(query) ||
