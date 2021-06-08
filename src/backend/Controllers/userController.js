@@ -20,7 +20,7 @@ const userController = {
   login: async (req, res) => {
     let result = {};
     try {
-      const { email, password } = req.body.account;
+      const { email, password } = req.body;
       const user = await User.findOne({ 'account.email': email });
       if (!user) {
         result = { success: false, msg: 'El correo ingresado no existe' };
@@ -48,11 +48,25 @@ const userController = {
   getUser: async (req, res) => {
     let result = {};
     try {
-      const { token } = req.headers;
+      const token = req.headers.authorization;
       const userDecoded = jwt.verify(token, config.key);
       // Si no se encuentra ningún usuario se lanza un error (orFail) y lo captura el catch
       // ahorra el if adicional
       const user = await User.findOne({ _id: userDecoded.userId }).orFail();
+      result = { success: true, msg: user };
+      res.status(200).send(result);
+    } catch (err) {
+      result = { success: false, msg: err.message };
+      res.status(400).send(result);
+    }
+  },
+
+  getUserById: async (req, res) => {
+    let result = {};
+    try {
+      const { id } = req.params;
+      console.log(id);
+      const user = await User.findOne({ _id: id }).orFail();
       result = { success: true, msg: user };
       res.status(200).send(result);
     } catch (err) {

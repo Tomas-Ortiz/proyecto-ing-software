@@ -1,6 +1,6 @@
 const validateToken = (req, res, next) => {
   let result = {};
-  const { token } = req.headers;
+  const token = req.headers.authorization;
   if (!token) {
     result = {
       success: false,

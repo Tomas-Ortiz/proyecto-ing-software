@@ -1,5 +1,5 @@
 <template>
-  <div class="error-message-container" role="alert">
+  <div :class="['error-message-container', errorTitle]" role="alert">
     <strong class="error-title">{{ errorTitle }}</strong
     ><br />
     <span class="error-message">{{ errorMsg }}</span>
@@ -25,6 +25,7 @@ export default {
     errorMsg: {
       type: String,
       required: true,
+      default: 'Error',
     },
     errorTitle: {
       type: String,
@@ -57,5 +58,11 @@ export default {
 }
 .close-icon {
   @apply w-8 select-none;
+}
+.Error {
+  @apply bg-red-100 border-red-400 text-red-700;
+}
+.Éxito {
+  @apply bg-green-100 border-green-400 text-green-700;
 }
 </style>

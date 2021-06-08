@@ -31,6 +31,12 @@ const routes = [
     meta: { title: `${nameApp} - Crea tu publicación` },
   },
   {
+    path: '/post/:id',
+    name: 'PostDetails',
+    component: () => import('../views/PostDetails.vue'),
+    meta: { title: `${nameApp} - Detalles publicación` },
+  },
+  {
     path: '/:catchAll(.*)*',
     name: 'PageNotFound',
     component: () => import('../views/PageNotFound.vue'),
@@ -46,8 +52,14 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: { title: `${nameApp} - Inicia Sesión` },
-  }
+    meta: { title: `${nameApp} - Iniciá sesión` },
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: () => import('../views/Logout.vue'),
+    meta: { title: nameApp },
+  },
 ];
 
 const router = createRouter({

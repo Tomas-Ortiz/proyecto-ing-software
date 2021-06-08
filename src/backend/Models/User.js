@@ -32,6 +32,7 @@ const userSchema = new Schema({
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     createdAt: { type: Date, default: Date.now(), required: true },
+    updatedAt: { type: Date, default: Date.now(), required: true },
     isActive: { type: Boolean, default: true, required: true },
     isConfirmed: { type: Boolean, default: false, required: true },
     role: {

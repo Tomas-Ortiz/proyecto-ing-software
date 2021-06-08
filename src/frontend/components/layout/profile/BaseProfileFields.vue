@@ -1,14 +1,11 @@
 <template>
   <div class="fields-container">
-
     <div class="container-title">
       <h1>Información de la Cuenta:</h1>
     </div>
 
     <div class="field">
-      <label
-        class="field-label"
-        for="name">
+      <label class="field-label" for="name">
         Nombre:
       </label>
       <base-input
@@ -56,9 +53,7 @@
     </div>
 
     <div class="field">
-      <label
-        class="field-label"
-        for="country">
+      <label class="field-label" for="country">
         País:
       </label>
       <select-option
@@ -91,9 +86,7 @@
     </div>
 
     <div class="field">
-      <label
-        class="field-label"
-        for="address">
+      <label class="field-label" for="address">
         Dirección:
       </label>
       <base-input
@@ -108,9 +101,7 @@
     </div>
 
     <div class="field">
-      <label
-        class="field-label"
-        for="mail">
+      <label class="field-label" for="mail">
         Email:
       </label>
       <base-input
@@ -125,9 +116,7 @@
     </div>
 
     <div class="field">
-      <label
-        class="field-label"
-        for="username">
+      <label class="field-label" for="username">
         Username:
       </label>
       <base-input
@@ -142,9 +131,7 @@
     </div>
 
     <div class="field">
-      <label
-        class="field-label"
-        for="password">
+      <label class="field-label" for="password">
         Contraseña:
       </label>
       <base-input
@@ -165,7 +152,6 @@
         disabledText="Actualizar datos"
       ></base-button>
     </div>
-
   </div>
 </template>
 
@@ -244,7 +230,7 @@ export default {
         id: /^([0-9]{8,20})$/,
         city: /^([a-zA-ZñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙ][\s]{0,1}){1,30}$/,
       },
-    }
+    };
   },
   created() {
     this.getCountries();
@@ -292,7 +278,7 @@ export default {
       }
     },
   },
-}
+};
 </script>
 
 <style lang="postcss" scoped>

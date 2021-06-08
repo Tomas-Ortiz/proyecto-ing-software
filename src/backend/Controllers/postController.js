@@ -20,6 +20,7 @@ const postController = {
 
   uploadImages: async (req, res) => {
     let result = {};
+    const fileServer = 'http://localhost:8887/';
     try {
       const images = [];
       const { postId } = req.body;
@@ -28,7 +29,7 @@ const postController = {
           name: file.filename,
           type: file.mimetype,
           size: file.size,
-          path: file.path,
+          path: fileServer + file.filename,
         });
       });
       await Post.updateOne(

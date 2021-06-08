@@ -1,6 +1,5 @@
 <template>
   <div class="contact-container">
-
     <div class="container-title">
       <h1>Opciones de Contacto</h1>
     </div>

@@ -1,12 +1,16 @@
 <template>
   <div class="banner-container">
-    <div class="banner-link login"><router-link to="/signup">Login</router-link></div>
-    <div class="banner-link signup"><router-link to="/signup">Registrarse</router-link></div>
+    <div class="banner-link login">
+      <router-link to="/login">Login</router-link>
+    </div>
+    <div class="banner-link signup">
+      <router-link to="/signup">Registrarse</router-link>
+    </div>
     <img
       src="../../assets/images/banner-image.jpg"
       class="banner-image"
       alt="Banner Image of Three Dogs"
-    >
+    />
     <div class="banner-title">Puppers</div>
   </div>
 </template>
@@ -43,6 +47,6 @@
   @apply text-gray-200;
 }
 .banner-title {
-  text-shadow: 4px 3px 3px rgba(0,0,0,0.68);
+  text-shadow: 4px 3px 3px rgba(0, 0, 0, 0.68);
 }
 </style>

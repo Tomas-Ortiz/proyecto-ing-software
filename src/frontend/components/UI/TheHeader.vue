@@ -1,12 +1,16 @@
 <template>
   <div class="header-container">
     <div class="header-title">
-      <router-link class="title router" to="/">PUPPERS</router-link>
+      <router-link class="title router" to="/">Puppers</router-link>
     </div>
     <div class="header-slot">
       <slot>
-        <router-link class="slot router" to="/create-post">Crear Publicación</router-link>
-        <router-link class="slot router" to="/">Cerrar Sesión</router-link>
+        <router-link class="slot router" to="/create-post"
+          >Crea tu publicación</router-link
+        >
+        <router-link class="slot router" to="/logout"
+          >Cerrar sesión</router-link
+        >
       </slot>
     </div>
   </div>

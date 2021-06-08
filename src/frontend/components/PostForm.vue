@@ -7,7 +7,7 @@
   >
     <div class="small-container">
       <label class="input-label" for="title">
-        Título de la publicación:
+        Título de la publicación
       </label>
       <base-input
         v-model="title"
@@ -21,24 +21,24 @@
     </div>
     <div class="small-container">
       <label class="input-label" for="name">
-        Nombre de la mascota*:
+        Nombre de la mascota
       </label>
-    <base-input
-      v-model="pet.name"
-      id="name"
-      name="name"
-      size="big"
-      placeholder="Nombre"
-      :regex="regex.name"
-      errorMsg="El nombre solo debe tener letras, sin espacios innecesarios, y puede contener hasta 30 caracteres"
-    ></base-input>
+      <base-input
+        v-model="pet.name"
+        id="name"
+        name="name"
+        size="big"
+        placeholder="Nombre"
+        :regex="regex.name"
+        errorMsg="El nombre solo debe tener letras, sin espacios innecesarios, y puede contener hasta 30 caracteres"
+      ></base-input>
     </div>
 
     <base-gender-form v-model="pet.gender"></base-gender-form>
 
     <div class="small-container">
       <label class="input-label" for="age">
-        Edad de la mascota:
+        Edad de la mascota
       </label>
       <div class="grid">
         <base-input
@@ -65,14 +65,14 @@
     </div>
     <div class="small-container">
       <label class="input-label" for="color">
-        Color de la mascota:
+        Color de la mascota
       </label>
       <base-input
         v-model.number="pet.colour"
         id="color"
         name="color"
         size="small"
-        placeholder="Color (opcional)"
+        placeholder="Color"
         :regex="regex.colour"
         errorMsg="El color solo puede contener letras, sin espacios innecesarios, y no puede superar los 30 caracteres"
       ></base-input>
@@ -80,7 +80,7 @@
 
     <div class="small-container">
       <label class="input-label" for="animalType">
-        Tipo de mascota:
+        Tipo de mascota
       </label>
       <base-select-option
         id="animalType"
@@ -95,7 +95,7 @@
 
     <div class="small-container">
       <label class="input-label" for="species">
-        Especie:
+        Especie
       </label>
       <base-select-option
         id="species"
@@ -110,7 +110,7 @@
 
     <div class="small-container">
       <label class="input-label" for="location">
-        Ubicación de la mascota:
+        Ubicación de la mascota
       </label>
       <base-radio
         v-model="pet.location"
@@ -123,7 +123,7 @@
     </div>
 
     <div class="small-container">
-      <label class="input-label" for="quantity">Cantidad de animales:</label>
+      <label class="input-label" for="quantity">Cantidad de animales</label>
       <base-input
         v-model.number="pet.quantity"
         id="quantity"
@@ -139,7 +139,7 @@
 
     <div class="big-container">
       <label class="input-label mx-auto" for="description">
-        Escribí una breve descripción de tu mascota
+        Breve descripción de tu mascota
       </label>
       <base-text-area
         id="description"
@@ -156,6 +156,7 @@
         ¿Qué condiciones debe cumplir el adoptante?
       </label>
       <base-text-area
+        id="location"
         changeStyle="post-creation-style"
         v-model="pet.adoptionConditions"
         :regex="regex.adoptionConditions"
@@ -213,8 +214,8 @@
     <base-error-message
       :errorMsg="error.message"
       :errorTitle="error.title"
-      :class="[errorMessageVisibility, size]"
-      @click="errorMessageVisibility = 'hidden'"
+      :class="[error.visibility, size]"
+      @click="error.visibility = 'hidden'"
     ></base-error-message>
     <base-button
       name="submit-button"
@@ -232,10 +233,10 @@ import BaseButton from './layout/BaseButton.vue';
 import BaseSelectOption from './layout/BaseSelectOption.vue';
 import BaseTextArea from './layout/BaseTextArea.vue';
 import BaseRadio from './layout/BaseRadio.vue';
-import BaseGenderForm from './layout/post/BasePostGenderForm.vue'
-import BasePostInput from './layout/post/BasePostInput.vue'
-import BaseErrorMessage from './layout/BaseErrorMessage.vue'
-import BasePostFileInput from './layout/post/BasePostFileInput.vue'
+import BaseGenderForm from './layout/post/BasePostGenderForm.vue';
+import BasePostInput from './layout/post/BasePostInput.vue';
+import BaseErrorMessage from './layout/BaseErrorMessage.vue';
+import BasePostFileInput from './layout/post/BasePostFileInput.vue';
 
 export default {
   components: {
@@ -261,6 +262,7 @@ export default {
       title: '',
       postId: '',
       post: {},
+      size: '',
       pet: {
         name: '',
         gender: 'Sin Género',
@@ -295,7 +297,6 @@ export default {
         title: 'Error',
         visibility: 'hidden',
       },
-      errorMessageVisibility: 'hidden',
     };
   },
   methods: {
@@ -311,22 +312,16 @@ export default {
     },
     createPostData() {
       this.post = {
-        // this.user._id
-        author: '60aaf9145bfd89325c11bac2',
+        author: this.user._id,
         title: this.title.value,
         pet: {
-          gender: this.pet.gender,
+          gender: this.pet.gender.value,
           age: Number(this.pet.age.value),
           ageTime: this.pet.ageTime.value,
           species: this.pet.species.value,
           type: this.pet.type.value,
           quantity: Number(this.pet.quantity.value),
-          // this.user.location
-          location: {
-            country: 'Argentina',
-            city: 'Mendoza',
-            address: 'Teurlay 706',
-          },
+          location: this.user.location,
         },
       };
       // Campos opcionales, solo se asignan al objeto "post" si existen
@@ -373,14 +368,16 @@ export default {
     },
     getUser() {
       const getUserURL = 'http://localhost:3000/getUser';
+      const config = {
+        headers: { Authorization: localStorage.getItem('token') },
+      };
       axios
-        .get(getUserURL)
+        .get(getUserURL, config)
         .then((user) => {
-          this.user = user.data;
+          this.user = user.data.msg;
         })
-        .catch((error) => {
-          console.log(error.response.data);
-          // this.$router.push({ name: 'Signin' });
+        .catch(() => {
+          this.$router.push({ name: 'Login' });
         });
     },
     emitPostData() {
@@ -415,8 +412,10 @@ export default {
         .then((response) => {
           this.showMessage('Éxito', response.data.msg, 'block');
           document.getElementById('submit-button').disabled = true;
-          // redireccionar a post/:postId para ver la publicación
-          setTimeout(() => this.$router.push({ name: 'Home' }), 4000);
+          setTimeout(
+            () => this.$router.push({ path: `/post/${this.postId}` }),
+            4000
+          );
         })
         .catch((error) => {
           this.showMessage('Error', error.response.data, 'block');
@@ -507,18 +506,5 @@ export default {
 }
 .images-name-size {
   @apply text-gray-700 font-bold italic text-xs;
-}
-.error-message-container {
-  @apply bg-red-100 border border-red-400 text-red-700;
-  @apply w-4/5 mx-auto px-4 py-3 rounded relative;
-}
-.error-message {
-  @apply block sm:inline;
-}
-.Error {
-  @apply bg-red-100 border-red-400 text-red-700;
-}
-.Éxito {
-  @apply bg-green-100 border-green-400 text-green-700;
 }
 </style>

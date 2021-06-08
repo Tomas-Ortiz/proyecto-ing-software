@@ -1,14 +1,18 @@
 <template>
   <div class="form-container">
     <div class="title-container">
-      <h1 class="title">Género:</h1>
+      <h1 class="title">Género</h1>
     </div>
     <div class="grid-container">
       <div class="gender-container" v-for="gender in genders" :key="gender">
         <base-gender-icon
-          :class="['gender', { selected: selectedGender == translateGenderValue(gender) }]"
+          :class="[
+            'gender',
+            { selected: selectedGender == translateGenderValue(gender) },
+          ]"
           :name="gender"
-          @click="emitInputValue(gender)">
+          @click="emitInputValue(gender)"
+        >
         </base-gender-icon>
       </div>
     </div>
@@ -17,7 +21,7 @@
 
 <script>
 /* eslint-disable no-param-reassign */
-import BaseGenderIcon from '../BaseSVGIcon.vue'
+import BaseGenderIcon from '../BaseSVGIcon.vue';
 
 export default {
   components: {
@@ -27,8 +31,8 @@ export default {
   data() {
     return {
       genders: ['male', 'female', 'genderless'],
-      selectedGender: 'genderless'
-    }
+      selectedGender: 'genderless',
+    };
   },
   methods: {
     translateGenderValue(gender) {
@@ -38,17 +42,17 @@ export default {
       if (gender === 'female') {
         return 'Hembra';
       }
-      return 'Sin Género';
+      return 'Sin especificar';
     },
     emitInputValue(gender) {
       this.selectedGender = this.translateGenderValue(gender);
       this.$emit('update:modelValue', {
         value: this.selectedGender,
-        isValid: true
+        isValid: true,
       });
     },
   },
-}
+};
 </script>
 
 <style lang="postcss" scoped>
