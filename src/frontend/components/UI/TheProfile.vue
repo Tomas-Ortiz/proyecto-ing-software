@@ -86,8 +86,8 @@ export default {
         const updateUserURL = 'http://localhost:3000/updateProfile'
         this.user = this.userData;
         this.user.contact = this.contactData;
-        console.log('EMITING THE FOLLOWING USER');
-        console.log(this.user);
+        // console.log('EMITING THE FOLLOWING USER');
+        // console.log(this.user);
         // axios.put(updateUserURL, )
       }
     },
