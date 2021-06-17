@@ -63,17 +63,18 @@ export default {
   emits: ['update:modelValue'],
   data() {
     return {
-      species: ['perro', 'gato', 'ave', 'reptil', 'conejo'],
+      species: ['perro', 'gato', 'pajaro', 'reptil', 'conejo'],
       colors: [
+        'gris',
         'rojo',
         'verde',
         'amarillo',
         'negro',
         'blanco',
-        'marrón',
+        'marron',
         'azul',
       ],
-      genders: ['macho', 'hembra'],
+      genders: ['macho', 'hembra', 'sin especificar'],
       filters: [],
       searchbarQuery: '',
     };

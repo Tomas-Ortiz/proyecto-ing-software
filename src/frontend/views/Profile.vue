@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import TheProfile from '../components/UI/TheProfile.vue'
-import TheHeader from '../components/UI/TheHeader.vue'
+import TheProfile from '../components/UI/TheProfile.vue';
+import TheHeader from '../components/UI/TheHeader.vue';
 
 export default {
   components: {

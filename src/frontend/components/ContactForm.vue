@@ -73,7 +73,6 @@ export default {
       );
     },
     emitContact() {
-      // console.log(`The contact inputs are valid: ${this.inputsAreValid()}`);
       if (this.inputsAreValid()) {
         this.$emit('update:modelValue', this.contact);
       }

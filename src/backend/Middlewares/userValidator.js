@@ -54,10 +54,10 @@ const userValidationRules = () => {
       .if(body('account.password').exists())
       .isLength({
         min: 8,
-        max: 16,
+        max: 256,
       })
       .withMessage(
-        'La contraseña debe tener como mínimo 8 caracteres y 16 como máximo'
+        'La contraseña debe tener como mínimo 8 caracteres y 256 como máximo'
       )
       .matches(/\d/)
       .withMessage('La contraseña debe tener al menos un número')

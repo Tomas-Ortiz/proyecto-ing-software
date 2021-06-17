@@ -20,5 +20,6 @@ router.put(
 );
 router.get('/getUser', validateToken, controller.getUser);
 router.get('/getUser/:id', controller.getUserById);
+router.delete('/deleteAccount', validateToken, controller.deleteAccount);
 
 module.exports = router;

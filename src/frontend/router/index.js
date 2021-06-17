@@ -43,7 +43,7 @@ const routes = [
     meta: { title: `${nameApp} - Página no encontrada` },
   },
   {
-    path: '/profile/:id',
+    path: '/profile',
     name: 'Profile',
     component: () => import('../views/Profile.vue'),
     meta: { title: `${nameApp} - Perfil` },

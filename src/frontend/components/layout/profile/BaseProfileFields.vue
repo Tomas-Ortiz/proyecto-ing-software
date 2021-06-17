@@ -15,14 +15,13 @@
         name="name"
         :placeholder="name"
         :regex="regex.fullName"
+        errorMsg="El nombre ingresado no es válido"
         @keyup="emitInputValue"
       />
     </div>
 
     <div class="field" v-if="type === 'Particular'">
-      <label
-        class="field-label"
-        for="id">
+      <label class="field-label" for="id">
         DNI:
       </label>
       <base-input
@@ -32,14 +31,13 @@
         name="id"
         :placeholder="NID"
         :regex="regex.id"
+        errorMsg="El DNI ingresado no es válido"
         @keyup="emitInputValue"
       />
     </div>
 
     <div class="field" v-else-if="type === 'ONG'">
-      <label
-        class="field-label"
-        for="description">
+      <label class="field-label" for="description">
         Descripción:
       </label>
       <base-input
@@ -63,15 +61,12 @@
         name="country"
         :options="countries"
         :defaultValue="location.country"
-        errorMsg="Debes seleccionar una opción válida"
         @change="emitInputValue"
       />
     </div>
 
     <div class="field">
-      <label
-        class="field-label"
-        for="city">
+      <label class="field-label" for="city">
         Provincia:
       </label>
       <base-input
@@ -81,6 +76,7 @@
         name="city"
         :placeholder="location.city"
         :regex="regex.city"
+        errorMsg="La ciudad ingresada no es válida"
         @keyup="emitInputValue"
       />
     </div>
@@ -96,6 +92,7 @@
         name="address"
         :placeholder="location.address"
         :regex="regex.address"
+        errorMsg="La dirección ingresada no es válida"
         @keyup="emitInputValue"
       />
     </div>
@@ -111,6 +108,7 @@
         name="email"
         :placeholder="email"
         :regex="regex.email"
+        errorMsg="El correo ingresado no es válido"
         @keyup="emitInputValue"
       />
     </div>
@@ -126,6 +124,7 @@
         name="username"
         :placeholder="username"
         :regex="regex.username"
+        errorMsg="El nombre de usuario ingresado no es válido"
         @keyup="emitInputValue"
       />
     </div>
@@ -136,21 +135,15 @@
       </label>
       <base-input
         v-model="newPassword"
+        type="password"
         class="field-input"
         id="password"
         name="password"
-        placeholder="Cambiar Contraseña"
+        placeholder="Nueva contraseña"
         :regex="regex.password"
+        errorMsg="La contraseña ingresada no es válida"
         @keyup="emitInputValue"
       />
-    </div>
-
-    <div class="update-button">
-      <base-button
-        buttonText="Actualizar datos"
-        :isDisabled="true"
-        disabledText="Actualizar datos"
-      ></base-button>
     </div>
   </div>
 </template>
@@ -160,9 +153,12 @@ import axios from 'axios';
 
 import BaseInput from '../BaseInput.vue';
 import BaseSelectOption from '../BaseSelectOption.vue';
-import BaseButton from '../BaseButton.vue';
 
 export default {
+  components: {
+    'base-input': BaseInput,
+    'select-option': BaseSelectOption,
+  },
   props: {
     userData: {
       type: Object,
@@ -193,6 +189,11 @@ export default {
       required: false,
       default: '',
     },
+    description: {
+      type: String,
+      required: false,
+      default: '',
+    },
     type: {
       type: String,
       required: false,
@@ -200,10 +201,8 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  components: {
-    'base-input': BaseInput,
-    'select-option': BaseSelectOption,
-    'base-button': BaseButton,
+  created() {
+    this.getCountries();
   },
   mounted() {
     this.user = this.userData;
@@ -232,9 +231,6 @@ export default {
       },
     };
   },
-  created() {
-    this.getCountries();
-  },
   methods: {
     getCountries() {
       const countriesURL = 'https://restcountries.eu/rest/v2/all';
@@ -259,7 +255,12 @@ export default {
       this.inputIsUpdated(this.newAddress, 'address', true, 'location');
       this.$emit('update:modelValue', this.user);
     },
-    inputIsUpdated(input, propertyName, propertyIsObject = false, objectName = '') {
+    inputIsUpdated(
+      input,
+      propertyName,
+      propertyIsObject = false,
+      objectName = ''
+    ) {
       if (input) {
         if (input.value !== '' && input.isValid) {
           if (!propertyIsObject) {
@@ -272,7 +273,9 @@ export default {
           if (!propertyIsObject) {
             this.user[propertyName] = this.userData[propertyName];
           } else {
-            this.user[objectName][propertyName] = this.userData[objectName][propertyName];
+            this.user[objectName][propertyName] = this.userData[objectName][
+              propertyName
+            ];
           }
         }
       }
@@ -301,12 +304,8 @@ option {
 .field-label {
   @apply w-5/12 font-semibold text-xl;
 }
-.update-button {
-  @apply w-full text-center mt-4;
-}
 .field-input,
-.field-label,
-.update-button {
+.field-label {
   @apply inline-block;
 }
 </style>
