@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import BaseLoginCard from '../layout/BaseLoginCard.vue';
+import BaseLoginCard from '../layout/login/BaseLoginCard.vue';
 import LoginFrom from '../LoginForm.vue';
 
 export default {

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import BaseErrorMessageVue from './BaseErrorMessage.vue'
+import BaseErrorMessageVue from './BaseErrorMessage.vue';
 
 export default {
   components: {
@@ -57,7 +57,6 @@ export default {
     regex: {
       type: RegExp,
       required: false,
-      // default: /^(?=.{1,40}$)[a-zA-Z]+(?:[-'\s][a-zA-Z]+)*$/g,
       default: /^([A-Za-z]+)$/,
     },
     errorMsg: {

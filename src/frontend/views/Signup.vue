@@ -1,19 +1,15 @@
 <template>
   <div class="signup-background">
     <the-signup></the-signup>
-    <!-- <the-login></the-login> -->
   </div>
 </template>
 
 <script>
 import TheSignup from '../components/UI/TheSignup.vue';
 
-// import TheLogin from '../components/UI/TheLogin.vue'
-
 export default {
   components: {
     'the-signup': TheSignup,
-    // 'the-login': TheLogin,
   },
   name: 'Signup',
 };

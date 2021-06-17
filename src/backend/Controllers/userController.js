@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../Models/User');
-const config = require('../configs/config');
+const config = require('../Configs/config');
 
 const userController = {
   register: async (req, res) => {
@@ -65,7 +65,6 @@ const userController = {
     let result = {};
     try {
       const { id } = req.params;
-      console.log(id);
       const user = await User.findOne({ _id: id }).orFail();
       result = { success: true, msg: user };
       res.status(200).send(result);
@@ -79,7 +78,12 @@ const userController = {
     let result = {};
     try {
       const user = req.body;
-      user.account.password = await User.encryptPassword(user.account.password);
+      // Si el usuario ha ingresado una nueva contraseña
+      if (user.account.password.length <= 16) {
+        user.account.password = await User.encryptPassword(
+          user.account.password
+        );
+      }
       const updatedUser = {
         $set: {
           fullname: user.fullname,
@@ -90,8 +94,26 @@ const userController = {
           contact: user.contact,
         },
       };
-      await User.updateOne({ _id: user.id }, updatedUser).orFail();
+      if (user.type === 'Particular') {
+        updatedUser.$set.NID = user.NID;
+      } else {
+        updatedUser.$set.description = user.description;
+      }
+      await User.updateOne({ _id: user._id }, updatedUser);
       result = { success: true, msg: 'Usuario actualizado' };
+      res.status(200).send(result);
+    } catch (err) {
+      result = { success: false, msg: err.message };
+      res.status(400).send(result);
+    }
+  },
+  deleteAccount: async (req, res) => {
+    let result = {};
+    try {
+      const token = req.headers.authorization;
+      const userDecoded = jwt.verify(token, config.key);
+      await User.deleteOne({ _id: userDecoded.userId }).orFail();
+      result = { success: true, msg: 'Cuenta eliminada' };
       res.status(200).send(result);
     } catch (err) {
       result = { success: false, msg: err.message };

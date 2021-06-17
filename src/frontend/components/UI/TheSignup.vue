@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import BaseSignupCard from '../layout/BaseSignupCard.vue';
+import BaseSignupCard from '../layout/signup/BaseSignupCard.vue';
 import SignupForm from '../SignupForm.vue';
 
 export default {

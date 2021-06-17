@@ -4,26 +4,25 @@
       <h1>Opciones de Contacto</h1>
     </div>
 
-    <div class="contact"
+    <div
+      class="contact"
       v-for="contactMethod in contactInfo"
-      :key="contactMethod.contactType">
-      <contact-icon
-        class="contact-icon"
-        :name="contactMethod.contactType">
+      :key="contactMethod.contactType"
+    >
+      <contact-icon class="contact-icon" :name="contactMethod.contactType">
       </contact-icon>
       <base-input
+        v-model="contact[contactMethod.contactType].value"
         id="contactMethod.contactType"
         class="contact-input"
         name="contactMethod.contactType"
         :placeholder="contactMethod.value"
         :regex="getRegexFor(contactMethod.contactType)"
-        errorMsg="Llenar el campo con un valor correcto"
+        errorMsg="El contacto ingresado no es válido"
         @keyup="emitInputValue"
-        v-model="contact[contactMethod.contactType].value"
-        >
+      >
       </base-input>
     </div>
-
   </div>
 </template>
 
@@ -32,6 +31,10 @@ import BaseContactIcon from '../BaseSVGIcon.vue';
 import BaseInput from '../BaseInput.vue';
 
 export default {
+  components: {
+    'contact-icon': BaseContactIcon,
+    'base-input': BaseInput,
+  },
   props: {
     contactInfo: {
       type: Array,
@@ -39,67 +42,55 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  components: {
-    'contact-icon': BaseContactIcon,
-    'base-input': BaseInput,
+  mounted() {
+    this.updatedContacts = this.contactInfo;
   },
   data() {
     return {
       contact: {
         instagram: {
-          value: null,
+          value: '',
           regex: /(https?:\/\/)?(www\.)?instagram\.com\/[A-Za-z0-9_.]{1,30}\/?/,
+          type: 'instagram',
         },
         facebook: {
-          value: null,
+          value: '',
           regex: /((http|https):\/\/|)(www\.|)facebook\.com\/[a-zA-Z0-9.]{1,}/,
+          type: 'facebook',
         },
         whatsapp: {
-          value: null,
+          value: '',
           regex: /([+(\d]{1})(([\d+() -.]){5,16})([+(\d]{1})/,
+          type: 'whatsapp',
         },
       },
       updatedContacts: [],
-      oldContacts: [],
-    }
-  },
-  mounted() {
-    this.updatedContacts = this.contactInfo;
-    this.oldContacts = this.contactInfo;
-    console.log('OLD CONTACTS:');
-    console.log(this.oldContacts);
+    };
   },
   methods: {
     getRegexFor(name) {
       return this.contact[name].regex;
     },
     emitInputValue() {
-      // Si existe un nuevo valor ingresado, agregarlo a updatedContacts
-      // Si el valor ingresado no es válido, agregar el valor viejo a updatedContacts
+      // Si existe un nuevo contacto ingresado, y es válido, reemplazarlo por el antiguo
       this.updatedContacts = this.contactInfo;
-      console.log('UPDATED CONTACTS:');
-      console.log(this.updatedContacts);
-      this.updatedContacts.forEach((item) => {
-        if (this.contact[item.contactType].value && this.contact[item.contactType].value.isValid) {
-          const index = this.updatedContacts.indexOf(item);
-          const newContact =
-          {
-            contactType: item.contactType,
-            value: this.contact[item.contactType].value.value,
-          }
-          this.updatedContacts.splice(index, 1, newContact);
-        } else {
-          const index = this.updatedContacts.indexOf(item);
-          const oldContact = this.oldContacts.filter((value) => {
-            return item.contactType === value.contactType;
+      let contactIndex;
+      Object.values(this.contact).forEach((contact) => {
+        if (contact.value.value !== undefined && contact.value.isValid) {
+          contactIndex = this.updatedContacts.findIndex((item) => {
+            return item.contactType === contact.type;
           });
-          this.updatedContacts.splice(index, 1, oldContact);
+          const newContact = {
+            contactType: contact.type,
+            value: contact.value.value,
+          };
+          this.updatedContacts.splice(contactIndex, 1, newContact);
         }
       });
       this.$emit('update:modelValue', this.updatedContacts);
     },
   },
-}
+};
 </script>
 
 <style lang="postcss" scoped>

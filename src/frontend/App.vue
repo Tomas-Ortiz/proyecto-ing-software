@@ -5,7 +5,7 @@
       <router-link to="/about">¿Quiénes somos?</router-link> |
       <router-link to="/signup">Registrarse</router-link> |
       <router-link to="/create-post">Publicar</router-link> |
-      <router-link to="/profile/test-id">Perfil</router-link> |
+      <router-link to="/profile">Perfil</router-link> |
       <router-link to="/login">Iniciar sesión</router-link>
       <svg
         xmlns="http://www.w3.org/2000/svg"
